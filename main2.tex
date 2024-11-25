@@ -60,8 +60,9 @@ citestyle=numeric,
 % Bibiography
 % \bibliographystyle{IEEEtran}
 
-
-
+% This is for highlighting %
+\usepackage{xcolor}
+\usepackage{soul}
 
 \author{Hung Vu}
 \title{Evaluation of Managed Kubernetes Solutions for Enterprise Use-cases}
@@ -530,6 +531,25 @@ The subsequent sections of this thesis are arranged as follows. Section 2 provid
 - Explain what the managed Kubernetes solutions are\\
 - Explain what OpenShift HyperShift is and brief architectural discussion (compare with the architecture of the public cloud Kubernetes solutions)\\
 
+\section{The Cloud}
+
+Cloud computing is a paradigm that enables companies to utilise computing resources over the internet without the need to manage infrastructure directly. According to the US National Institute of Standards and Technology, the cloud facilitates "ubiquitous, convenient, on-demand network access to a shared pool of configurable computing resources (e.g., networks, servers, storage, applications, and services) that can be rapidly provisioned and released with minimal management effort or service provider interaction" \cite{editorCloudComputingGlossary}. This offers businesses significant flexibility, scalability, and cost savings. Cloud services can be divided into three primary deployment models: Public Cloud, Private Cloud, and Hybrid Cloud \cite{ramgovind2010management}.
+
+\subsection{Public Cloud}
+
+In recent years, public cloud appear to be the most commonly adopted deployment model \cite{CNCFAnnualSurvey2024, opara2016critical}. At the time of writing all leading cloud providers such as Amazon, Microsoft, and Google offer their variant of public cloud. In this model, organisations can rent necessary resources based on their usage from a shared pool. This allows organisations to utilise cloud resources without investing in physical infrastructure upfront. Furthermore, public cloud also offers tenants the ability to elastically adjust resource levels according to demand, scaling up or down as needed to potentially reduce costs \cite{suleiman2012understanding}. Public clouds are also traditionally considered less secure than other cloud models due to being hosted off-premise by third-party vendors \cite{sakr2011survey}. However, the security risk can be mitigated with appropriate countermeasure \cite{fox2009above}.
+
+
+\subsection{Private Cloud}
+
+In a private cloud setup, organisations obtain dedicated cloud environments exclusively for their usage. In contrast with the public cloud, a private cloud ensures isolation of infrastructure and services, offering enhanced control, customisation, and security. Private clouds are often hosted on-premise. This dedicated environment can be tailored to meet the specific needs of the organisation \cite{ramgovind2010management}.
+
+\subsection{Hybrid Cloud}
+
+A hybrid cloud deployment allows users to access features from both private and public clouds, taking advantage of both environments \cite{ramgovind2010management, dash2016governance}. This model allows organisations to run sensitive or critical workloads in-house, while leveraging the public cloud for less sensitive tasks. In addition, the integration of public cloud into the deployment also accommodates scaling requirements during peak demand, thus letting organisations optimise for both security and cost-efficiency \cite{huangAchievingBigData2014}.
+
+
+
 
 \section{Vitualisation}
 
@@ -558,7 +578,10 @@ CO frameworks such as Kubernetes and Docker Swarm effectively manage the deploym
 
 CO platforms compliment these benefits of distributed and containerised applications by minimising the management overhead, reducing the complexity of maintaining such configuration. The importance of workload distribution and containerisation in cloud infrastructure combine with the added benefits of CO platforms make them an important topic for research in both academia and industry. This focus on CO platforms and cloud-native application principles was revealed to be the research topic that gathered the most attention in a 2017 study \cite{kratzkeUnderstandingCloudnativeApplications2017}. The cloud space has evolved a lot since then. However, CO platforms still play a central role in today's cloud. The prevelant of CO platforms can be seen from the popularity of Kubernetes as a project, which will be discussed in section \ref{kubernetes}
 
+
 \section{Cloud-native}
+There are a variety of components that constitute a cloud-native application. However, as proposed by Gannon et al. \cite{gannonCloudNativeApplications2017}, cloud-native applications are designed to take advantage of the cloud environment. This entails utilising the fluid and distributed nature of the cloud to provide services that can operate at a global scale with low latency and high reliability \cite{gannonCloudNativeApplications2017}.
+
 The Cloud-Native Computing Foundation (CNCF), part of the Linux Foundation, is an organisation that seeks to drive forward the cloud-native technologies and practices. They are the leading body in terms of setting best-practices recommendations in the cloud-native space. Many of the projects that they support, such as Kubernetes, Prometheus, HELM, and ArgoCD become de facto tools for cloud-native application development, monitoring, orchestration, and deployment. CNCF defined cloud-native as technologies that enable the development and deployment of scalable applications in cloud environments \cite{cloudnativecomputingfoundationWhoWeAre}. The application could be hosted on public, private, or hybrid cloud. However, in order to support the previously mentioned requirements, they usually possess the following attributes:
 
 \begin{enumerate}
@@ -604,33 +627,18 @@ As a widely adopted tool across various industry, it is impossible for the upstr
 
 \subsubsection{Open-source Kubernetes Distributions}
 
-For organisations that prioritise flexibility, one potential option is to adopt an open-source Kubernetes distribution. Due to the lack of standards, there are certain differences between cloud service providers. According to Truyen et al. \cite{truyenManagingFeatureCompatibility2020}, these discrepancies largely fall into the following groups: cluster architecture and setup; framework customization interfaces; and feature incompatibilities. The disparity between vendors can create compatibility challenges when the need for platform migration arises. Open-source solutions' main strength is mitigating the risk of vendor lock-in, as well as minimising the operational cost. The differences will be discussed in further detail in the Related Works section.
+For organisations that prioritise flexibility, one potential option is to adopt an open-source Kubernetes distribution. Due to the lack of standards, there are certain differences between cloud service providers. According to Truyen et al. \cite{truyenManagingFeatureCompatibility2020}, these discrepancies largely fall into the following groups: cluster architecture and setup; framework customization interfaces; and feature incompatibilities. The disparity between vendors can create compatibility challenges when the need for platform migration arises. Open-source solutions' main strength is mitigating the risk of vendor lock-in \cite{shaikh2011total}. The differences will be discussed in further detail in the Related Works section.
 
 \subsubsection{Managed Kubernetes Distributions}
 
-Despite the high degree of customisability and flexibility that the open-source solutions offer, they lack the advanced features that managed Kubernetes distributions offer. As a result, there is a significant disparity in adoption, with organisations favouring managed solutions over open-source ones \cite{redhatinc.StateKubernetesSecurity2024}.
+Despite the high degree of customisability and flexibility that the open-source solutions offer, they lack the advanced features that managed Kubernetes distributions offer. Some of these features could include, for instance, automate control plane management (updating and maintaining Kubernetes control plane)l; cluster auto-scaling (scaling the underlying collection of compute nodes according to demand); and kubelet configuration API \cite{truyenManagingFeatureCompatibility2020, KubeletConfigMachineconfigurationopenshiftioV1, AmazonEKSCustomers, RedHatOpenShiftb}. As a result, there is a significant disparity in adoption, with organisations favouring managed solutions over open-source ones \cite{redhatinc.StateKubernetesSecurity2024}.
 
 
-\section{The Cloud}
+\textbf{Managed Kubernetes in the Cloud}
 
-Cloud computing is a paradigm that enables companies to utilise computing resources over the internet without the need to manage infrastructure directly. According to the US National Institute of Standards and Technology, the cloud facilitates "ubiquitous, convenient, on-demand network access to a shared pool of configurable computing resources (e.g., networks, servers, storage, applications, and services) that can be rapidly provisioned and released with minimal management effort or service provider interaction" \cite{editorCloudComputingGlossary}. This offers businesses significant flexibility, scalability, and cost savings. Cloud services can be divided into three primary deployment models: Public Cloud, Private Cloud, and Hybrid Cloud \cite{jadejaCloudComputingConcepts2012}.
+In the context of managed Kubernetes, some major public cloud options are Amazon Elastic Kubernetes Service (EKS), Google Kubernetes Engine (GKE), Azure Kubernetes Service (AKS), Red Hat OpenShift \footnote{At the time of writing, OpenShift offer 5 public cloud provider options for cloud-hosted infrastructure: AWS, Azure, Google, and IBM \cite{OpenShiftContainerPlatform}}, and VMware Tanzu \cite{AmazonEKSCustomers, maEurekaHumanLevelReward2023, nickomangAzureKubernetesService, redhatinc.RedHatOpenShift, VMwareTanzuPlatform}.
 
-\subsection{Public Cloud}
-
-The public cloud is the most commonly adopted deployment model. Naturally, all leading cloud providers such as Amazon, Microsoft, and Google offer their variant of public cloud. In this model, organisations can rent necessary resources based on their usage from a shared pool. This allows organisations to utilise cloud resources without investing in physical infrastructure upfront. Furthermore, public cloud also offers tenants the ability to elastically adjust resource levels according to demand, scaling up or down as needed to potentially reduce costs \cite{suleiman2012understanding}. However, public clouds are traditionally considered less secure than other cloud models due to being hosted by third-party vendors \cite{jadejaCloudComputingConcepts2012}. 
-
-In the context of managed Kubernetes, some major public cloud options are Amazon Elastic Kubernetes Service (EKS), Google Kubernetes Engine (GKE), Azure Kubernetes Service (AKS), Red Hat OpenShift \footnote{At the time of writing, OpenShift offer 4 public cloud provider options for cloud-hosted infrastructure: AWS, Azure, Google, and IBM \cite{OpenShiftContainerPlatform}}, and VMware Tanzu \cite{AmazonEKSCustomers, maEurekaHumanLevelReward2023, nickomangAzureKubernetesService, redhatinc.RedHatOpenShift, VMwareTanzuPlatform}.
-
-This thesis focuses strictly on public cloud managed Kubernetes offerings, due to the limited availability of pricing information for the self-managed/private cloud option \cite{redhatinc.RedHatOpenShift}.
-
-\subsection{Private Cloud}
-
-In a private cloud setup, organisations obtain dedicated cloud environments exclusively for their usage. In contrast with the public cloud, a private cloud ensures isolation of infrastructure and services, offering enhanced control, customisation, and security. Private clouds are often hosted on-premise. This dedicated environment can be tailored to meet the specific needs of the organisation \cite{jadejaCloudComputingConcepts2012}.
-
-\subsection{Hybrid Cloud}
-
-A hybrid cloud deployment allows users to access features from both private and public clouds, taking advantage of both environments \cite{jadejaCloudComputingConcepts2012, dash2016governance}. This model allows organisations to run sensitive or critical workloads in-house, while leveraging the public cloud for less sensitive tasks. In addition, the integration of public cloud into the deployment also accommodates scaling requirements during peak demand, thus letting organisations optimise for both security and cost-efficiency \cite{huangAchievingBigData2014}.
-
+This thesis focuses strictly on public cloud managed Kubernetes offerings, due to the limited availability of pricing information for the self-managed/private cloud option. For instance, Red Hat OpenShift \cite{redhatinc.RedHatOpenShift}.
 
 
 
@@ -647,7 +655,7 @@ A hybrid cloud deployment allows users to access features from both private and 
     \label{fig:search-interests-kubernetes-vs-managed-kubernetes}
 \end{figure}
 
-To provide context for the topic covered in this thesis, this section looks at the popularity of Kubernetes and managed Kubernetes by examining Google Trends search data and the yearly publications data from the Web of Science database. Although Google Trends is not considered a reliable research tool, Kratzke et al. proposed that it can serve as a resource for spotting “industrial buzzwords” and new trends in the technology sector \cite{kratzkeUnderstandingCloudnativeApplications2017}. By combining this data with an analysis of research publications, we can gain insights into evolving trends in both the industry and in academia. The keywords examined are “Kubernetes” and “managed Kubernetes” (case-insensitive) and the timeframe spans from the earliest data-point to October 2024, which is one month prior to the completion of this thesis.
+To provide context for the topic covered in this thesis, this section looks at the popularity of Kubernetes and managed Kubernetes by examining Google Trends search data and the yearly publications data from the Web of Science database. Kratzke et al. proposed that Google Trend can serve as a resource for spotting “industrial buzzwords” and new trends in the technology sector \cite{kratzkeUnderstandingCloudnativeApplications2017}. By combining this data with an analysis of research publications, we can gain insights into evolving trends in both the industry and in academia. The keywords examined are “Kubernetes” and “managed Kubernetes” (case-insensitive) and the timeframe spans from the earliest data-point to October 2024, which is one month prior to the completion of this thesis.
 
 The graph depicted in Figure \ref{fig:search-interests-kubernetes-vs-managed-kubernetes} shows the search interest on Google for “Kubernetes” compared to “managed Kubernetes”. From the plot, it can be discerned that there is a steady rise in popularity for Kubernetes since its introduction until the peak around 2022, after which the search interest stabilises.
 
