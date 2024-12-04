@@ -23,6 +23,8 @@
 \microtypesetup{letterspace=25}       % Kannen harvaan välistykseen
 
 % My own packages
+\usepackage{longtable}
+\usepackage{amsmath}
 \usepackage{url}
 \def\UrlBreaks{\do\/\do-}
 \usepackage{breakurl}
@@ -55,6 +57,7 @@ citestyle=numeric,
 \addbibresource{references.bib}
 \usepackage{xurl}
 \usepackage{placeins}
+\emergencystretch 3em
 
 
 % Bibiography
@@ -63,6 +66,7 @@ citestyle=numeric,
 % This is for highlighting %
 \usepackage{xcolor}
 \usepackage{soul}
+
 
 \author{Hung Vu}
 \title{Evaluation of Managed Kubernetes Solutions for Enterprise Use-cases}
@@ -131,7 +135,7 @@ citestyle=numeric,
 
 % Nimiösivun marginaalit
 \newgeometry{left=80.7mm,right=25mm,top=12.9mm,bottom=21mm}
-
+a
 \thispagestyle{empty}
 
 {\parindent0pt % Kappaleiden sisennys pois päältä
@@ -425,7 +429,7 @@ Although Kubernetes distributions' performance are relatively well-researched, f
 
 Therefore, this thesis aims to identify the current state of Kubernetes adoption and key challenges to derive key feature requirements for Kubernetes distributions. Based on these requirements, it then compares various distributions and evaluates their ability to address said requirements, as well as the expected cost of operation for each distribution. The goal of this work is to provide a comprehensive assessment of available managed Kubernetes offerings and identify the best-suited options for the industry to meet the most common set of requirements.
 
-Among managed Kubernetes distributions, EKS, GKE, AKS, and OpenShift consistently rank among the most widely adopted distributions for organisations \cite{redhatinc.StateKubernetesSecurity2024, vrabicDigitalTwinsUnderstanding2018, portworxKubernetesAdoptionSurvey2021, broadcomStateKubernetes20232023}. Thus, these four distributions are chosen for assessment to make the work relevant to Nokia and the industry at large. The evaluation consists of three main parts: a brief literature review on the current state of managed Kubernetes distributions, a feature comparison, and a cost analysis for the selected distributions.
+Among managed Kubernetes distributions, EKS, GKE, AKS, and OpenShift consistently rank among the most widely adopted distributions for organisations \cite{redhatinc.StateKubernetesSecurity2024, canonicalKubernetesCloudNative2022, portworxKubernetesAdoptionSurvey2021, broadcomStateKubernetes20232023}. Thus, these four distributions are chosen for assessment to make the work relevant to Nokia and the industry at large. The evaluation consists of three main parts: a brief literature review on the current state of managed Kubernetes distributions, a feature comparison, and a cost analysis for the selected distributions.
 
 The subsequent sections of this thesis are arranged as follows. Section 2 provides background on the relevant technologies to Kubernetes and the mentioned managed Kubernetes distributions. Section 3 outlines the research methodology. Section 4 compiles and interprets results from the review. Lastly, Section 5 concludes the findings and discusses potential topics for further research.
 
@@ -537,7 +541,7 @@ Cloud computing is a paradigm that enables companies to utilise computing resour
 
 \subsection{Public Cloud}
 
-In recent years, public cloud appear to be the most commonly adopted deployment model \cite{CNCFAnnualSurvey2024, opara2016critical}. At the time of writing all leading cloud providers such as Amazon, Microsoft, and Google offer their variant of public cloud. In this model, organisations can rent necessary resources based on their usage from a shared pool. This allows organisations to utilise cloud resources without investing in physical infrastructure upfront. Furthermore, public cloud also offers tenants the ability to elastically adjust resource levels according to demand, scaling up or down as needed to potentially reduce costs \cite{suleiman2012understanding}. Public clouds are also traditionally considered less secure than other cloud models due to being hosted off-premise by third-party vendors \cite{sakr2011survey}. However, the security risk can be mitigated with appropriate countermeasure \cite{fox2009above}.
+In recent years, public cloud appears to be the most commonly adopted deployment model \cite{CNCFAnnualSurvey2024, opara2016critical}. At the time of writing, the leading public cloud providers are Amazon, Microsoft, and Google \cite{2024StateCloud}. In this model, organisations can rent necessary resources based on their usage from a shared pool. This allows organisations to utilise cloud resources without investing in physical infrastructure upfront. Furthermore, public cloud also offers tenants the ability to elastically adjust resource levels according to demand, scaling up or down as needed to potentially reduce costs \cite{suleiman2012understanding}. Public clouds are also traditionally considered less secure than other cloud models due to being hosted off-premise by third-party vendors \cite{sakr2011survey}. However, the security risk can be mitigated with appropriate countermeasure \cite{fox2009above}.
 
 
 \subsection{Private Cloud}
@@ -631,16 +635,13 @@ For organisations that prioritise flexibility, one potential option is to adopt 
 
 \subsubsection{Managed Kubernetes Distributions}
 
-Despite the high degree of customisability and flexibility that the open-source solutions offer, they lack the advanced features that managed Kubernetes distributions offer. Some of these features could include, for instance, automate control plane management (updating and maintaining Kubernetes control plane)l; cluster auto-scaling (scaling the underlying collection of compute nodes according to demand); and kubelet configuration API \cite{truyenManagingFeatureCompatibility2020, KubeletConfigMachineconfigurationopenshiftioV1, AmazonEKSCustomers, RedHatOpenShiftb}. As a result, there is a significant disparity in adoption, with organisations favouring managed solutions over open-source ones \cite{redhatinc.StateKubernetesSecurity2024}.
+Despite the high degree of customisability and flexibility that the open-source solutions offer, they lack the advanced features that managed Kubernetes distributions offer. Some of these features could include, for instance, automate control plane management (updating and maintaining Kubernetes control plane)l; cluster auto-scaling (scaling the underlying collection of compute nodes according to demand); and Kubelet configuration API (Kubelet configurations can be done through an API instead of through command-line parameters) \cite{truyenManagingFeatureCompatibility2020, KubeletConfigMachineconfigurationopenshiftioV1, AmazonEKSCustomers, RedHatOpenShiftb}. As a result, there is a significant disparity in adoption, with organisations favouring managed solutions over open-source ones \cite{redhatinc.StateKubernetesSecurity2024}.
 
-
-\textbf{Managed Kubernetes in the Cloud}
+\paragraph{Managed Kubernetes in the Cloud}\mbox{}
 
 In the context of managed Kubernetes, some major public cloud options are Amazon Elastic Kubernetes Service (EKS), Google Kubernetes Engine (GKE), Azure Kubernetes Service (AKS), Red Hat OpenShift \footnote{At the time of writing, OpenShift offer 5 public cloud provider options for cloud-hosted infrastructure: AWS, Azure, Google, and IBM \cite{OpenShiftContainerPlatform}}, and VMware Tanzu \cite{AmazonEKSCustomers, maEurekaHumanLevelReward2023, nickomangAzureKubernetesService, redhatinc.RedHatOpenShift, VMwareTanzuPlatform}.
 
-This thesis focuses strictly on public cloud managed Kubernetes offerings, due to the limited availability of pricing information for the self-managed/private cloud option. For instance, Red Hat OpenShift \cite{redhatinc.RedHatOpenShift}.
-
-
+This thesis focuses strictly on public cloud managed Kubernetes offerings, due to the limited availability of pricing information for the self-managed/private cloud option. For instance, Red Hat OpenShift \cite{redhatinc.RedHatOpenShift}. In addition, as mentioned in the section on Public Cloud, it is the most common cloud deployment model. Pereira et al. \cite{pereiraferreiraPerformanceEvaluationContainers2019} suggested that this is true for Kubernetes hosting preference as well, with cloud-hosted Kubernetes becoming more common. In the paper, this was attributed to the auto-provisioning (or auto-scaling) capability, along with the management aid that cloud-hosted Kubernetes offers.
 
 \section{Interest in Kubernetes and Managed Kubernetes}
 
@@ -679,6 +680,21 @@ The preference for managed Kubernetes is further supported through industrial re
 
 This process of analysing academic interest for the given topics involved collecting information on the yearly publication count through the Web of Science result analysis tool. This annual publication data, shown in Figure \ref{fig:research-publications-kubernetes-and-managed-kubernetes}, reflects a steady increase in Kubernetes-related publications until the peak in 2022. This trends aligns with the results demonstrated by the Google Trends data.
 
+The term 'managed Kubernetes' was chosen because it appears to be a common term for distributions such as AKS, EKS, GKE, and OCP \cite{AmazonEKSCustomers,ManagedKubernetesService,pereiraferreiraPerformanceEvaluationContainers2019}. However, as depicted by the plot above, the number of hits for 'managed Kubernetes' was surprisingly low. In order to widen the scope of the search, the following query was used to capture all mentions of these distributions in the topic: \texttt{`TS=((EKS OR "Elastic Kubernetes Service" OR AKS OR "Azure Kubernetes Service" OR GKE OR "Google Kubernetes Engine" OR OCP OR "OpenShift Container Platform" OR "managed kubernetes") AND "kubernetes")`}. This query matches all results with any of the managed Kubernetes distribution mentioned in the Title, Abstract, or Keyword. In addition, it filters out any results that \textit{do not} contain "Kubernetes". This aims to avoid irrelevant matches from other fields (for example, medical and biology) that are unrelated to the current search.
+
+Plotting the results again (Figure \ref{fig:managed-k8s-broaden-scope}), it can be observed that although the number of matches has increased compared to the previous query with \texttt{"managed kubernetes"}, the number of publications remains relatively modest across the years.
+
+\FloatBarrier
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{resources/managed-k8s-broaden-scope.png}
+    \caption{Annual Research Publications on the managed Kubernetes examined (EKS, AKS, GKE, OCP)}
+    \label{fig:managed-k8s-broaden-scope}
+\end{figure}
+
+
 Nevertheless, it is worth noting that managed Kubernetes has not received the same level of attention in academic research as it has in Google Trends. There was only a rather limited number of publications annually from 2019 to 2024, with only one or two publications per year. This disparity indicates that there could be potential for further academic investigation into managed Kubernetes (e.g. features, performance, and costs), similar to Ferreira’s study \cite{pereiraferreiraPerformanceEvaluationContainers2019}.
 
 Regarding the observed peak, a 2019 study by Truyen et al. \cite{truyenComprehensiveFeatureComparison2019} proposed that container orchestration technologies were entering the peak of the Gartner hype cycle. However, both the Google Trends data and the number of annually published articles seem to suggest otherwise. From these insights, it appears that Kubernetes likely reached its peak in popularity around 2022.
@@ -687,7 +703,7 @@ These statistics indicate a rising interest in both Kubernetes and managed Kuber
 
 \section{Related Works}
 \subsubsection{Differences Between K8s vendors and vendor lock-in}
-The paper "Managing Feature Compatibility in Kubernetes: Vendor Comparison and Analysis" by Truyen et al \cite{truyenManagingFeatureCompatibility2020}. look at three major Kubernetes distributions (EKS, AKS, GKE) and compare them in terms of feature compatibility and potential of vendor lock-in. The main groups of differences proposed are:
+Truyen et al \cite{truyenManagingFeatureCompatibility2020} look at three major Kubernetes distributions (EKS, AKS, GKE) and compare them in terms of feature compatibility and potential of vendor lock-in. The main groups of differences proposed are:
 
 \begin{itemize}
 
@@ -749,10 +765,147 @@ GKE, on the other hand, has the highest number of Kubernetes features that work 
 
 In short, EKS is more compatible when taking into account potential configuration steps, while GKE is more compatible while taking into account the out-of-the-box state of the distribution.
 
-The work shown that there are non-negligible differences even among major players in the managed Kubernetes space and the compatibility between evaluated platforms. However, the paper did not assess the importance of the features provided by the platforms as well as the differences in cost of operation. In addition, OCP was not evaluated in the study. As one of the most popular managed Kubernetes distributions, there are potential valuable insights to be gained from examining OCP and comparing it against other offerings \cite{redhatinc.StateKubernetesSecurity2024, vrabicDigitalTwinsUnderstanding2018, portworxKubernetesAdoptionSurvey2021, broadcomStateKubernetes20232023}.
+The work shown that there are non-negligible differences even among major players in the managed Kubernetes space and the compatibility between evaluated platforms. However, the paper did not assess the importance of the features provided by the platforms as well as the differences in cost of operation. In addition, OCP was not evaluated in the study. As one of the most popular managed Kubernetes distributions, there are potential valuable insights that can be obtained from examining OCP and comparing it against other offerings \cite{redhatinc.StateKubernetesSecurity2024, vrabicDigitalTwinsUnderstanding2018, portworxKubernetesAdoptionSurvey2021, broadcomStateKubernetes20232023}.
+
+\hl{CHECK NOTES FOR OTHER WORKS TO ADD:} \url{https://hungvvu.github.io/Zettelkasten/School/Thesis-and-Seminar/Permanent-Notes/Draft-3/Thesis-Draft-3,-Related-Works}
 
 \chapter{Methodology}
 
+\begin{tiny} 
+\begin{longtable}{|p{0.2\linewidth}|p{0.3\linewidth}|p{0.45\linewidth}|} % Adjusted column widths
+\hline
+\textbf{Source} & \textbf{Question} & \textbf{Top Challenges} \\
+\hline
+Portworx 2022 Annual Kubernetes Adoption Report \cite{2022AnnualKubernetes} & What are the challenges that are the most difficult to overcome when running Kubernetes (ranked top three)? & 
+\raggedright 1. Security \newline 2. Data management \newline 3. Reliability \tabularnewline
+\hline
+Broadcom State of Cloud Native App Platforms 2024 Report \cite{StateCloudNative} & What challenges do organizations encounter in building or adopting a cloud native app platform? & 
+\raggedright 1. Meeting compliance and security requirements \newline 2. Integration with existing data sources and repositories \newline 3. Distributed ownership deployment and management \tabularnewline
+\hline
+Canonical Kubernetes and Cloud Native Operations Report 2022 \cite{canonicalKubernetesCloudNative2022} & What are the top challenges Kubernetes brings to businesses? & 
+\raggedright 1. Security and compliance concerns not addressed adequately \newline 2. Integrating cloud-native applications together \newline 3. Poor or limited support from platform providers or partners \tabularnewline
+\hline
+Spectrocloud 2024 State of Production Kubernetes Survey \cite{2024StateProduction} & What challenges does your organization face with running Kubernetes in production? & 
+\raggedright 1. It’s difficult to choose and validate the right stack components from the broad cloud-native ecosystem \newline 2. Configuration drift causes issues with compliance and availability \newline 3. We struggle to properly protect ourselves against security breaches \tabularnewline
+\hline
+CNCF Annual Survey 2023 \cite{CNCFAnnualSurvey2024} & What are your Challenges in Using / Deploying Containers? & 
+\raggedright 1. Security \newline 2. Complexity \newline 3. Monitoring \tabularnewline
+\hline
+\end{longtable}
+\end{tiny}
+
+
+\[
+\begin{pmatrix}
+
+e^{-(a_{1,1} - r_1)w_1} + e^{-(a_{1,2} - r_2)w_2} + \cdots + e^{-(a_{1,m} - r_m)w_m} \\
+e^{-(a_{2,1} - r_1)w_1} + e^{-(a_{2,2} - r_2)w_2} + \cdots + e^{-(a_{2,m} - r_m)w_m} \\
+\vdots \\
+e^{-(a_{l,1} - r_1)w_1} + e^{-(a_{l,2} - r_2)w_2} + \cdots + e^{(a_{l,m} - r_m)w_m} \\
+
+\end{pmatrix}
+\]
+
+### Feature Evaluation
+Several methods were considered for this thesis. Namely, the Cloud Evaluation Experiment Methodology (CEEM) framework was used by Pereira et al. \cite{pereiraferreiraPerformanceEvaluationContainers2019} in the managed Kubernetes performance evaluation mentioned in the Related Work section. However, this framework is designed with empirical experiments in mind. Thus, it is not applicable for this thesis since most of the features are qualitative in nature.
+
+Another framework for cloud service selection is proposed by Arun et al. \cite{9284492}. It provides a rather comprehensive and structured method to evaluate cloud services, including a criterion for cloud features. Yet, the emphasis is on multi-cloud selection, while the current work focuses more on the comparison and ranking between the services being evaluated as standalone solutions.
+
+The method for evaluating the distributions in this thesis must be adoptable to qualitative features. In addition, the output of the method must result in a clear ranking of the evaluated services. One framework that could potentially match these characteristics is the Multi-Criteria selection method suggested by Rehman et al. \cite{5976164}. This provides an established and systematic approach that can be used to evaluate the managed Kubernetes distributions considered.
+
+The key factors involved in the method are:
+
+1. **Service set ($S$):** A set with length $l$ of all available services being evaluated, where element $s_i$ corresponds to the service $i$.
+2. **Performance criteria ($C$):** A set with length $m$ of all the criteria being used to evaluate the services in $S$, where element $c_j$ corresponds to the criteria $j$.
+3. **Performance measurement functions ($F$):** A set with length $m$ of functions being used to evaluate the criteria in $C$. Each function $f_j$ for criterion $c_j$ can be applied to the service $s_i$ such that $f_j(s_i)$ results in a quantitative metric as output.
+4. **Service descriptor ($D_i$):** A row vector with length $m$ that contains the evaluations of service $s_i$, where element $d_j$ of the vector correspond to the result of the performance evaluation on criterion $c_j$ ($d_j=f_j(s_i)$).
+5. **Decision matrix ($A$):** An $l \times m$ matrix where element $a_{i,j}$ corresponds to the performance of service $s_i$ with regard to criterion $c_j$. In other words, the row $a_i$ of the matrix is equivalent to the service descriptor vector $D_i$.
+6. **User requirement criteria ($R$):** A row vector with length $m$ that contains the user/decision maker's minimum requirements for each criterion $c_j$, where element $r_j$ is the minimum requirement for criterion $c_j$.
+7. **User priority weights ($W$):** A row vector with length $m$ that contains the user/decision maker's priority for each criterion $c_j$, where element $w_j$ is the weight for criterion $c_j$.
+
+From these factors, we can compute the Exponential Weighted Difference (EWD):
+
+
+![[Pasted image 20241128091414.png]]
+
+**NOTE: LaTex equivalent of the image (remember to have `\usepackage{amsmath}`)**
+
+
+
+$$
+\begin{pmatrix}
+e^{-(a_{1,1} - r_1)w_1} + e^{-(a_{1,2} - r_2)w_2} + \cdots + e^{-(a_{1,m} - r_m)w_m} \\
+e^{-(a_{2,1} - r_1)w_1} + e^{-(a_{2,2} - r_2)w_2} + \cdots + e^{-(a_{2,m} - r_m)w_m} \\
+\vdots \\
+e^{-(a_{l,1} - r_1)w_1} + e^{-(a_{l,2} - r_2)w_2} + \cdots + e^{(a_{l,m} - r_m)w_m} \\
+\end{pmatrix}
+$$
+
+
+The calculation results in a column vector of length $l$, with each row containing a single number that will be the score of the service $s_i$ in our evaluation. Effectively, this measures how much the assessment score of a feature deviate negatively from the user's minimum requirements. A score that is lower than the minimum requirement $a_{i,j}<r_j$ would result in a positive power and thus a large exponential term. On the other hand, a score that is higher than the minimum requirement would result in a negative power and thus a small exponential term. A smaller value indicates that the service performs better than other services in relation to the criteria being evaluated and the user's requirements.
+
+From the formula, we can observe that it heavily penalises features that fall *below* the user's requirements, much more than features that exceed the user's requirements can compensate (e.g. $e^{2} > e^{-2}$). In addition, *exceeding* the minimum requirement is desirable (e.g. $e^{-2}>e^{-3}$). However, since an exponential function is used, the gain follows a diminishing return curve as the assessment score becomes higher. As addressed by Rehman et al. \cite{5976164}, this pattern is desirable because of two reasons:
+
+1. Ensuring that the user's minimum requirements are respected. In practical decision-making, the fact that a service score 1 unit lower than the minimum requirement on criterion A should not be negated by criterion B scoring 1 unit above the minimum requirement.
+2. Preventing a single criterion to dominate the evaluation result. Due to the diminishing return curve, situations where a service excel at a single feature, resulting in said service being ranked higher, is prevented. In other words, while better performance is rewarded, no single criterion can overcompensate for subpar performance on other criteria. This ensures a balanced evaluation across all criteria.
+
+As an example, given $r=3$ and $w=1$, the exponential term in question would have the following curve as the assessment score $a$ varies:
+
+
+![[Pasted image 20241129085308.png]]
+
+The main challenge for the research problem in this thesis is finding appropriate functions to evaluate the qualitative features to a numeric value.
+
+
+As identified in previous sections, criteria for evaluation in this work are:
+
+(criteria from [[Thesis Draft 3, Evaluation Criteria]])
+
+### Service set and performance criteria
+We can define the service set and performance criteria as follows:
+
+
+- **Service set ($S$):** (EKS, AKS, GKE, OCP)
+- **Performance criteria ($C$):** (Security, Costs, Maximum nodes in a cluster, Storage Provisioning, CNIs, Monitoring and Logging)
+
+### Performance evaluation functions
+The performance evaluation functions will determine how the score for each criterion in set $C$ is calculated. The function for each criterion is defined as follow:
+
+#### Security
+For all distribution, the security features are examined from a *functional* perspective. In other words, the following question is evaluated: "What is the output of this feature?". Then, for each distribution, count how many of the features/functions can be performed.
+
+
+#### Cost
+As mentioned in the section on managed Kubernetes, the costs for public cloud services are publicly available and are often published on the provider website. For EKS, AKS, and GKE, the following parameters are used to provide a standardised estimate for the cluster's management fee:
+
+- **Region:** Northern Europe (Stockholm). This aims to make the evaluation more relevant to Nokia and Finnish businesses.
+- **Number of Clusters:** 1
+- **Type of Support/Support License Agreement (SLA):** The most extensive option. As stated in the CNCF Annual Survey 2023 \cite{CNCFAnnualSurvey2024}, complexity is still the second most challenging problem for container operations. Thus, an extensive degree of support aims to reflect the practical needs of organisations when adopting these services.
+
+Public cloud services often use the number of vCPUs as the criteria for management cost calculation \cite{RedHatOpenShiftc,PricingGoogleKubernetes}. In this evaluation, we look at a standard cluster with 3 worker nodes, each with 20 vCPUs. The full list of VM specifications are as follows:
+
+- 20 vCPUs
+- 64 GB RAM
+- 1 TB SSD
+
+From these specifications, the monthly cost of operation is computed based on the available information on the provider's website.
+
+#### Maximum nodes in a cluster
+The Maximum number of nodes in a cluster is obtained through the official documentation \cite{Chapter4Planninga,KnownLimitsService,nickomangLimitsResourcesSKUs2024,QuotasLimitsGoogle}. This is the maximum supported nodes in a single cluster. In the case of GKE, while it is theoretically possible to increase the limit to 65,000 nodes, this requires additional services and configurations that needs to be performed by 
+
+
+- **Service descriptor ($D_i$):** 
+- **Decision matrix ($A$):** 
+- **User requirement criteria ($R$):** 
+- **User priority weights ($W$):** 
+
+
+#### Result Normalisation
+As discussed by Rehman et al. \cite{5976164}, the performance measurement functions' result should be normalised to a unified range. A min-max normalisation is performed on all resulting output above to achieve a score on a scale from 0 to 5. The normalisation formula can be found below:
+
+
+$$
+   \text{Normalized Value} = 5 \times \frac{x - \text{min}(x)}{\text{max}(x) - \text{min}(x)}
 
 \chapter{Results and Discussion}
 
