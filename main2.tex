@@ -29,6 +29,8 @@
 \def\UrlBreaks{\do\/\do-}
 \usepackage{breakurl}
 \usepackage{xpatch}
+\usepackage{array}
+\usepackage{booktabs}
 % \usepackage[backend=bibtex,style=ieee,natbib=true]{biblatex}
 % \usepackage[style=ieee,backend=biber]{biblatex}
 \usepackage[
@@ -59,6 +61,12 @@ citestyle=numeric,
 \usepackage{placeins}
 \emergencystretch 3em
 
+
+
+% My own definitions
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
 % Bibiography
 % \bibliographystyle{IEEEtran}
@@ -541,7 +549,7 @@ Cloud computing is a paradigm that enables companies to utilise computing resour
 
 \subsection{Public Cloud}
 
-In recent years, public cloud appears to be the most commonly adopted deployment model \cite{CNCFAnnualSurvey2024, opara2016critical}. At the time of writing, the leading public cloud providers are Amazon, Microsoft, and Google \cite{2024StateCloud}. In this model, organisations can rent necessary resources based on their usage from a shared pool. This allows organisations to utilise cloud resources without investing in physical infrastructure upfront. Furthermore, public cloud also offers tenants the ability to elastically adjust resource levels according to demand, scaling up or down as needed to potentially reduce costs \cite{suleiman2012understanding}. Public clouds are also traditionally considered less secure than other cloud models due to being hosted off-premise by third-party vendors \cite{sakr2011survey}. However, the security risk can be mitigated with appropriate countermeasure \cite{fox2009above}.
+In recent years, public cloud appears to be the most commonly adopted deployment model \cite{VoiceKubernetesExperts,CNCFAnnualSurvey2024, opara2016critical}. At the time of writing, the leading public cloud providers are Amazon, Microsoft, and Google \cite{2024StateCloud}. In this model, organisations can rent necessary resources based on their usage from a shared pool. This allows organisations to utilise cloud resources without investing in physical infrastructure upfront. Furthermore, public cloud also offers tenants the ability to elastically adjust resource levels according to demand, scaling up or down as needed to potentially reduce costs \cite{suleiman2012understanding}. Public clouds are also traditionally considered less secure than other cloud models due to being hosted off-premise by third-party vendors \cite{sakr2011survey}. However, the security risk can be mitigated with appropriate countermeasure \cite{fox2009above}.
 
 
 \subsection{Private Cloud}
@@ -672,15 +680,22 @@ The preference for managed Kubernetes is further supported through industrial re
 
 \begin{figure}
     \centering
-    \includegraphics[width=1\linewidth]{resources/55ccf3419c03248ff5a2383d4ae63366.png}
-    \caption{Annual Research Publications on Kubernetes and managed Kubernetes}
+    \includegraphics[width=1\linewidth]{resources/publications-plot-k8s.png}
+    \caption{Annual Research Publications on Kubernetes}
     \label{fig:research-publications-kubernetes-and-managed-kubernetes}
 \end{figure}
 
 
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{resources/publications-plot-managed-k8s.png}
+    \caption{Annual Research Publications on Managed Kubernetes}
+    \label{fig:research-publications-managed-kubernetes}
+\end{figure}
+
 This process of analysing academic interest for the given topics involved collecting information on the yearly publication count through the Web of Science result analysis tool. This annual publication data, shown in Figure \ref{fig:research-publications-kubernetes-and-managed-kubernetes}, reflects a steady increase in Kubernetes-related publications until the peak in 2022. This trends aligns with the results demonstrated by the Google Trends data.
 
-The term 'managed Kubernetes' was chosen because it appears to be a common term for distributions such as AKS, EKS, GKE, and OCP \cite{AmazonEKSCustomers,ManagedKubernetesService,pereiraferreiraPerformanceEvaluationContainers2019}. However, as depicted by the plot above, the number of hits for 'managed Kubernetes' was surprisingly low. In order to widen the scope of the search, the following query was used to capture all mentions of these distributions in the topic: \texttt{`TS=((EKS OR "Elastic Kubernetes Service" OR AKS OR "Azure Kubernetes Service" OR GKE OR "Google Kubernetes Engine" OR OCP OR "OpenShift Container Platform" OR "managed kubernetes") AND "kubernetes")`}. This query matches all results with any of the managed Kubernetes distribution mentioned in the Title, Abstract, or Keyword. In addition, it filters out any results that \textit{do not} contain "Kubernetes". This aims to avoid irrelevant matches from other fields (for example, medical and biology) that are unrelated to the current search.
+The term 'managed Kubernetes' was chosen because it appears to be a common term for distributions such as AKS, EKS, GKE, and OCP \cite{AmazonEKSCustomers,ManagedKubernetesService,pereiraferreiraPerformanceEvaluationContainers2019}. However, as depicted by the plot in Figure \ref{fig:research-publications-managed-kubernetes} above, the number of hits for 'managed Kubernetes' was surprisingly low. In order to widen the scope of the search, the following query was used to capture all mentions of these distributions in the topic: \texttt{`TS=((EKS OR "Elastic Kubernetes Service" OR AKS OR "Azure Kubernetes Service" OR GKE OR "Google Kubernetes Engine" OR OCP OR "OpenShift Container Platform" OR "managed kubernetes") AND "kubernetes")`}. This query matches all results with any of the managed Kubernetes distribution mentioned in the Title, Abstract, or Keyword. In addition, it filters out any results that \textit{do not} contain "Kubernetes". This aims to avoid irrelevant matches from other fields (for example, medical and biology) that are unrelated to the current search.
 
 Plotting the results again, it can be observed that although the number of matches has increased compared to the previous query with \texttt{"managed kubernetes"}. However, the number of publications remains at a modest amount from 2019 to 2023. On the other hand, there seems to be a spike in the number of publications in 2024. It is unclear whether this is a temporary increase or the start of a long-term trend in managed Kubernetes research.
 
@@ -707,59 +722,19 @@ Truyen et al \cite{truyenManagingFeatureCompatibility2020} look at three major K
 
 \begin{itemize}
 
-\item \textbf{Architectural}: Differences in terms of the way the platform is implemented. For example, scheduler, controlplane, pod node limitations, etc. 
-\item \textbf{Customization interfaces}: Differences in terms of how Kubernetes components can be configure. For example, Service accounts, CNI choices, volume management, etc.
-\item \textbf{Feature incompatibilities}: Differences in terms of feature availability. For example, API resources, Custom Resource Definitions (CRDs), etc.
+\item \textbf{Architectural}: Differences in terms of the way the platform is implemented. For example, the operating system choice of the platform.
+\item \textbf{Customization interfaces}: Differences in terms of how Kubernetes components can be configured. For example, the Container Network Interface (CNI) choices that the distribution provide (Calico, Cilium, Flannel, etc.)
+\item \textbf{Feature incompatibilities}: Differences in terms of feature availability. This could be in the form of API resources, Custom Resource Definitions (CRDs), etc. For example, the SCC custom resource is only available on OCP.
 
 \end{itemize}
 
-These divergences can bring migration challenges, which introduces a risk called \textit{vendor lock-in}. Vendor lock-in happens when an organisation becomes dependent on a product, while alternative options require significant efforts (e.g. costs, technical, legal) \cite{opara2016critical}. Further details of the differences are covered below.
-
-
-\subsubsection{Architectural Differences}
-
-It was identified that there are fundamental differences in terms of architecture between the examined distributions. A list of the differences can be seen from Table \ref{tab:architecture-diff-k8s-distro}. Red Hat OpenShift Container Platform (OCP) was not covered in the paper, and it is not the focus of this thesis to identify architectural differences between these distributions. However, to gain a broad idea of their differences, we can identify that one key difference is the OS requirements. Acording the paper, all three distributions examined (AKS, EKS, and GKE) have support for Windows Server nodes \cite{truyenManagingFeatureCompatibility2020}. This, however, is not the case for Red Hat OpenShift Container Platform (OCP). At the time of writing, Red Hat CoreOS (RHCOS) is the "the only supported operating system for OpenShift Container Platform control plane, or master, machines" \cite{RedHatEnterprise}.
-
-Furthermore, for OCP 4.1 the Maximum nodes per cluster for OCP is 2,000 \cite{Chapter6Planning}. OCP 4.1 was released in June 2019, which should make the available specifications comparable to those of AKS, EKS, and GKE in the paper from Truyen et al \cite{truyenManagingFeatureCompatibility2020}. As of the time of writing, the maximum nodes limit has not increased with the latest version of OCP \cite{Chapter4Planning}.
-
-
-\begin{table}
-    \centering
-    \includegraphics[width=0.6\linewidth]{resources/Pasted image 20241123075148.png}
-    \caption{Architectural differences between three major Kubernetes distribution \cite{truyenManagingFeatureCompatibility2020}}
-    \label{tab:architecture-diff-k8s-distro}
-\end{table}
-
-\FloatBarrier
-
-
-
-\subsubsection{Customization Interfaces}
-
-
-
-Framework customisation interfaces are the means exposed to customers to customise their Kubernetes environment \cite{truyenManagingFeatureCompatibility2020}. An example of framework customisation difference between the distributions is the default container network interface (CNI) used for a standard cluster. The CNI for AKS, EKS, and GKE can be seen in Table \ref{tab:kube-distro-cni-diff}. From this table, kubenet appears to be a common choice for CNI among the managed Kubernetes distribution examined by Truyen et al \cite{truyenManagingFeatureCompatibility2020}. OCP, on the other hand, uses OVN-Kubernetes as the default CNI for its cluster \cite{Chapter23OVNKubernetes}.
-
-
-\begin{table}
-    \centering
-    \includegraphics[width=0.6\linewidth]{resources/Pasted image 20241123082858.png}
-    \caption{CNI Differences between AKS, EKS, and GKE \cite{truyenManagingFeatureCompatibility2020}}
-    \label{tab:kube-distro-cni-diff}
-\end{table}
-
-\FloatBarrier
-
-\subsubsection{Feature Incompatibilities}
-
-
-The final group of potential differences between Kubernetes distributions is feature incompatibilities between them. These differences manifest itself as disparities in the available API and custom resource definitions (CRDs). In practice, this determines what functionalities is available to use within the cluster. For instance, although Security Context is a universal concept that exists in Kubernetes and all the downstream Kubernetes distributions, Security Context Constraint (SCC) only exists in OCP \cite{ConfigureSecurityContext, ManagingSecurityContext}. These discrepancies, as identified by Truyen et al. \cite{truyenManagingFeatureCompatibility2020}, could potentially lead to difficulties in platform migration. In the case of OCP SCCs, applications from another vendor that does not have sufficient SCC privileges configured might not run successfully on OCP \cite{ConfigureSecurityContext}.
+These divergences can bring migration challenges, which introduces a risk called \textit{vendor lock-in}. Vendor lock-in happens when an organisation becomes dependent on a product, while alternative options require significant efforts (e.g. costs, technical, legal) \cite{opara2016critical}.
 
 \subsubsection{Ease of Migration Analysis}
 
 Due to the mentioned differences between platforms, migrating from one platform to another can prove to be a challenging procedure. Truyen et al. \cite{cloudnativecomputingfoundationFrequentlyAskedQuestions2018} evaluated AKS, EKS, and GKE in terms of pair-wise migratability mapping across these differences. 
 
-The paper discussed potential errors in the recorded findings due to some test results (coloured in a brown-shade) being inconsistent with the official documentation. After adjusting for these errors, EKS possesses the lowest number of incompatible occurrences, making it the most configurable distribution out of the ones examined. In other words, when strictly considering their compatibility with native Kubernetes' customisation interfaces, EKS is more compatible than the other two vendors \textit{after potential configurations}.
+The paper discussed potential errors in the recorded findings due to some test results being inconsistent with the official documentation. After adjusting for these errors, EKS possesses the lowest number of incompatible occurrences, making it the most configurable distribution out of the ones examined. In other words, when strictly considering their compatibility with native Kubernetes' customisation interfaces, EKS is more compatible than the other two vendors \textit{after potential configurations}.
 
 GKE, on the other hand, has the highest number of Kubernetes features that work \textit{out-of-the-box}. This means that out-of-the-box with zero configuration, GKE is the most compatible with native Kubernetes' feature set, making it the more feature-rich distribution.
 
@@ -767,7 +742,6 @@ In short, EKS is more compatible when taking into account potential configuratio
 
 The work shown that there are non-negligible differences even among major players in the managed Kubernetes space and the compatibility between evaluated platforms. However, the paper did not assess the importance of the features provided by the platforms as well as the differences in cost of operation. In addition, OCP was not evaluated in the study. As one of the most popular managed Kubernetes distributions, there are potential valuable insights that can be obtained from examining OCP and comparing it against other offerings \cite{redhatinc.StateKubernetesSecurity2024, vrabicDigitalTwinsUnderstanding2018, portworxKubernetesAdoptionSurvey2021, broadcomStateKubernetes20232023}.
 
-\hl{CHECK NOTES FOR OTHER WORKS TO ADD:} \url{https://hungvvu.github.io/Zettelkasten/School/Thesis-and-Seminar/Permanent-Notes/Draft-3/Thesis-Draft-3,-Related-Works}
 
 \subsubsection{Performance analysis of managed Kubernetes distributions}
 
@@ -779,7 +753,17 @@ Similar to the Truyen et al. paper \cite{truyenManagingFeatureCompatibility2020}
 
 As mentioned in the paper, as well as demonstrated by the number of yearly publications above, the literature covering the performance of these managed solutions is rather sparse. Open-source Kubernetes distributions, on the other hand, have received significantly more attention in terms of research \cite{bohmProfilingLightweightContainer2021,koziolekLightweightKubernetesDistributions2023,ascensaoAssessingKubernetesDistributions2024,9660392,bryantKubernetesDeploymentOptions2024}. Given the high degree of variations amongst the managed distributions in terms of performance, features, and costs, further research could provide valuable insights that aid organisations in making informed decisions on their distribution of choice.
 
-\chapter{Evaluation Criteria}
+\subsubsection{Feature Analysis}
+
+To the best of our knowledge, the most similar study to this thesis is a recent 2024 article by Kumar et al. \cite{10499108}. The paper examined different cloud container technologies, including EKS, GKE, AKS, and Red Hat OpenShift, amongts with other platforms and technologies. It compares the platforms in terms of features such as maximum number of nodes, security method, storage provisioning method etc. Additionally, a rough cost comparison of the services was also provided.
+
+Kumar et al. \cite{10499108} provided a thorough analysis of the similarities, as well as the differences, between the Kubernetes platforms examined. Nevertheless, the work provided a general comparison of the platforms in order to provide complementary insights for users to aid in decision-making. Therefore, the comparison is provided in general terms. For instance, in contrasts to the Truyen et al. paper \cite{truyenManagingFeatureCompatibility2020}, the cluster installation time is given in terms such as "Takes time" and "Easy installation". While these insights are useful for evaluating suitable platforms for organisational needs, they are too vague to systematically determine what platform is best or most suitable. In other words, it is challenging to grade and rank the technologies simply based on these qualitative statements.
+
+This thesis will focuses on evaluating relevant features for enterprises (as identified in the Evaluation Criteria section) in a quantifiable manner. From the evaluation results, it is possible to identify of what the most suitable managed Kubernetes distribution is, given the established criteria and parameters. However, the methodology can be adopted and customised to case-by-case requirements by modifying those variables. This enables users to perform a multi-criteria appraisal and determine the most appropriate distribution based on their organisation's needs.
+
+\chapter{Evaluation Criteria}\label{chap:evaluation-criteria}
+
+\section{Key Feature}
 
 The core research question examined in this thesis is "What is the most suitable managed Kubernetes distribution for enterprise?" In order to answer this question, we must first define what constitute a “suitable” distribution for enterprise use-cases. In other words, what are the most important factors for company and organisations when adopting a Kubernetes platform. Towards this end, five major industrial report in the timeframe 2022-2024 were reviewed. From each report, three top challenges adopting Kubernetes or cloud-native platforms are identified. The findings can be found from table \ref{tab:challenges-from-surveys}.
 
@@ -809,50 +793,471 @@ CNCF Annual Survey 2023 \cite{CNCFAnnualSurvey2024} & What are your Challenges i
 \end{tiny}
 From these insights, it is clear that security is the most pressing concern for organisations. Therefore, security features are selected as the key indicator of distribution suitability in this thesis. However, it is worth noting that this evaluation criteria can be changed for future evaluation depending on the requirements of the respective organisation.
 
-\chapter{Methodology}
+\section{Fundamental Kubernetes Features}
 
-\begin{tiny} 
-\begin{longtable}{|p{0.2\linewidth}|p{0.3\linewidth}|p{0.45\linewidth}|} % Adjusted column widths
-\hline
-\textbf{Source} & \textbf{Question} & \textbf{Top Challenges} \\
-\hline
-Portworx 2022 Annual Kubernetes Adoption Report \cite{2022AnnualKubernetes} & What are the challenges that are the most difficult to overcome when running Kubernetes (ranked top three)? & 
-\raggedright 1. Security \newline 2. Data management \newline 3. Reliability \tabularnewline
-\hline
-Broadcom State of Cloud Native App Platforms 2024 Report \cite{StateCloudNative} & What challenges do organizations encounter in building or adopting a cloud native app platform? & 
-\raggedright 1. Meeting compliance and security requirements \newline 2. Integration with existing data sources and repositories \newline 3. Distributed ownership deployment and management \tabularnewline
-\hline
-Canonical Kubernetes and Cloud Native Operations Report 2022 \cite{canonicalKubernetesCloudNative2022} & What are the top challenges Kubernetes brings to businesses? & 
-\raggedright 1. Security and compliance concerns not addressed adequately \newline 2. Integrating cloud-native applications together \newline 3. Poor or limited support from platform providers or partners \tabularnewline
-\hline
-Spectrocloud 2024 State of Production Kubernetes Survey \cite{2024StateProduction} & What challenges does your organization face with running Kubernetes in production? & 
-\raggedright 1. It’s difficult to choose and validate the right stack components from the broad cloud-native ecosystem \newline 2. Configuration drift causes issues with compliance and availability \newline 3. We struggle to properly protect ourselves against security breaches \tabularnewline
-\hline
-CNCF Annual Survey 2023 \cite{CNCFAnnualSurvey2024} & What are your Challenges in Using / Deploying Containers? & 
-\raggedright 1. Security \newline 2. Complexity \newline 3. Monitoring \tabularnewline
-\hline
-\end{longtable}
-\end{tiny}
+As discussed by Truyen et al. \cite[202]{truyenManagingFeatureCompatibility2020}, there are other differences between distributions apart from security features. Thus, to make the evaluation more realistic, a selection of basic features is included. These are features that directly and universally impact the operation of a Kubernetes cluster, independent of the organisational requirements.
 
+\begin{enumerate}
+  \item \textbf{Storage Provisioning:} Number of storage provisioning methods officially supported
+  \item \textbf{CNIs:} Number of CNIs officially supported
+  \item \textbf{Monitoring and Logging:} Number of application monitoring and logging methods officially supported
+  \item \textbf{Maximum number of nodes in a cluster:} The node limit for a single cluster
+\end{enumerate}
+
+It is worth mentioning that this list does not aim to be exhaustive. There are other potential features that could be included. However, evaluating them requires separate in-depth experimentation and therefore do not fall within the constraints of this thesis. For instance, some features that could be useful to include are the CPU, memory, disk I/O, and networking performance of a given distribution. These measurements are examined in further detail by Pereira et al. \cite{pereiraferreiraPerformanceEvaluationContainers2019} in a 2019 paper. However, the data from the paper cannot be applied to the thesis since OCP was not included in the analysis.
+
+Despite these limitations, the features above make the current evaluation more multifaceted and relevant to businesses, since they are fundamental features of Kubernetes that directly impact operations
+
+\section{Costs}
+
+The cost of operation is an important factor that influence enterprises' choice of services. Thus, it is crucial to include the cost of these distributions in our evaluation.
+
+\chapter{Evaluation Methodology}
+
+\section{Feature Evaluation}\label{feature-evaluation}
+
+Several methods were considered for this thesis. Namely, the Cloud
+Evaluation Experiment Methodology (CEEM) framework was used by Pereira
+et al.~\cite{pereiraferreiraPerformanceEvaluationContainers2019} in the
+managed Kubernetes performance evaluation mentioned in the Related Work
+section. However, this framework is designed with empirical experiments
+in mind. Thus, it is not applicable for this thesis since most of the
+features are qualitative in nature.
+
+Another framework for cloud service selection is proposed by Arun et
+al.~\cite{9284492}. It provides a rather comprehensive and structured
+method to evaluate cloud services, including a criterion for cloud
+features. Yet, the emphasis is on multi-cloud selection, while the
+current work focuses more on the comparison and ranking between the
+services being evaluated as standalone solutions.
+
+The method for evaluating the distributions in this thesis must be
+adoptable to qualitative features. In addition, the output of the method
+must result in a clear ranking of the evaluated services. One framework
+that could potentially match these characteristics is the Multi-Criteria
+selection method suggested by Rehman et al.~\cite{5976164}. This
+provides an established and systematic approach that can be used to
+evaluate the managed Kubernetes distributions considered.
+
+The key factors involved in the method are:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Service set (\(S\)):} A set with length \(l\) of all available
+  services being evaluated, where element \(s_i\) corresponds to the
+  service \(i\).
+\item
+  \textbf{Performance criteria (\(C\)):} A set with length \(m\) of all
+  the criteria being used to evaluate the services in \(S\), where
+  element \(c_j\) corresponds to the criteria \(j\).
+\item
+  \textbf{Performance measurement functions (\(F\)):} A set with length
+  \(m\) of functions being used to evaluate the criteria in \(C\). Each
+  function \(f_j\) for criterion \(c_j\) can be applied to the service
+  \(s_i\) such that \(f_j(s_i)\) results in a quantitative metric as
+  output.
+\item
+  \textbf{Service descriptor (\(D_i\)):} A row vector with length \(m\)
+  that contains the evaluations of service \(s_i\), where element
+  \(d_j\) of the vector correspond to the result of the performance
+  evaluation on criterion \(c_j\) (\(d_j=f_j(s_i)\)).
+\item
+  \textbf{Decision matrix (\(A\)):} An \(l \times m\) matrix where
+  element \(a_{i,j}\) corresponds to the performance of service \(s_i\)
+  with regard to criterion \(c_j\). In other words, the row \(a_i\) of
+  the matrix is equivalent to the service descriptor vector \(D_i\).
+\item
+  \textbf{User requirement criteria (\(R\)):} A row vector with length
+  \(m\) that contains the user/decision maker's minimum requirements for
+  each criterion \(c_j\), where element \(r_j\) is the minimum
+  requirement for criterion \(c_j\).
+\item
+  \textbf{User priority weights (\(W\)):} A row vector with length \(m\)
+  that contains the user/decision maker's priority for each criterion
+  \(c_j\), where element \(w_j\) is the weight for criterion \(c_j\).
+\end{enumerate}
+
+From these factors, we can compute the Exponential Weighted Difference
+(EWD):
 
 \[
 \begin{pmatrix}
-
 e^{-(a_{1,1} - r_1)w_1} + e^{-(a_{1,2} - r_2)w_2} + \cdots + e^{-(a_{1,m} - r_m)w_m} \\
 e^{-(a_{2,1} - r_1)w_1} + e^{-(a_{2,2} - r_2)w_2} + \cdots + e^{-(a_{2,m} - r_m)w_m} \\
 \vdots \\
 e^{-(a_{l,1} - r_1)w_1} + e^{-(a_{l,2} - r_2)w_2} + \cdots + e^{(a_{l,m} - r_m)w_m} \\
-
 \end{pmatrix}
 \]
 
+The calculation results in a column vector of length \(l\), with each
+row containing a single number that will be the score of the service
+\(s_i\) in our evaluation. Effectively, this measures how much the
+assessment score of a feature deviate negatively from the user's minimum
+requirements. A score that is lower than the minimum requirement
+\(a_{i,j}<r_j\) would result in a positive power and thus a large
+exponential term. On the other hand, a score that is higher than the
+minimum requirement would result in a negative power and thus a small
+exponential term. A smaller value indicates that the service performs
+better than other services in relation to the criteria being evaluated
+and the user's requirements.
 
-\chapter{Results and Discussion}
+From the formula, we can observe that it heavily penalises features that
+fall \emph{below} the user's requirements, much more than features that
+exceed the user's requirements can compensate (e.g.~\(e^{2} > e^{-2}\)).
+In addition, \emph{exceeding} the minimum requirement is desirable
+(e.g.~\(e^{-2}>e^{-3}\)). However, since an exponential function is
+used, the gain follows a diminishing return curve as the assessment
+score becomes higher. As addressed by Rehman et al.~\cite{5976164}, this
+pattern is desirable because of two reasons:
 
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Ensuring that the user's minimum requirements are respected. In
+  practical decision-making, the fact that a service score 1 unit lower
+  than the minimum requirement on criterion A should not be negated by
+  criterion B scoring 1 unit above the minimum requirement.
+\item
+  Preventing a single criterion to dominate the evaluation result. Due
+  to the diminishing return curve, situations where a service excel at a
+  single feature, resulting in said service being ranked higher, is
+  prevented. In other words, while better performance is rewarded, no
+  single criterion can overcompensate for subpar performance on other
+  criteria. This ensures a balanced evaluation across all criteria.
+\end{enumerate}
+
+As an example, given \(r=3\) and \(w=1\), the exponential term in
+question would have the curve in Figure \ref{fig:example-exp-func-graph} as the assessment score \(a\)
+varies.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{resources/example exponential function.png}
+    \caption{Exponential Weighted Difference Curve}
+    \label{fig:example-exp-func-graph}
+\end{figure}
+
+The main challenge for the research problem in this thesis is finding
+appropriate functions to evaluate the qualitative features to a numeric
+value.
+
+As identified in previous sections, criteria for evaluation in this work
+are as follows
+
+\subsubsection{Service set and performance
+criteria}\label{service-set-and-performance-criteria}
+
+We can define the service set and performance criteria as follows:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Service set (\(S\)):} (EKS, AKS, GKE, OCP)
+\item
+  \textbf{Performance criteria (\(C\)):} (Security, Costs, Maximum nodes
+  in a cluster, Storage Provisioning, CNIs, Monitoring and Logging)
+\end{itemize}
+
+\section{Performance evaluation
+functions}\label{performance-evaluation-functions}
+
+The performance evaluation functions will determine how the score for
+each criterion in set \(C\) is calculated. The function for each
+criterion is defined as follow:
+
+\subsection{Security}\label{security}
+
+For all distribution, the security features are examined from a
+\emph{functional} perspective. In other words, the following question is
+evaluated: ``What is the output of this feature?''. Then, for each
+distribution, count how many of the features/functions can be performed.
+
+\subsection{Cost}\label{cost}
+
+As mentioned in the section on managed Kubernetes, the costs for public
+cloud services are publicly available and are often published on the
+provider's website. For EKS, AKS, and GKE, the following parameters are
+used to provide a standardised estimate for the cluster's management
+fee:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Region:} Northern Europe (Stockholm, Helsinki if not available). This aims to make the
+  evaluation more relevant to Nokia and Finnish businesses.
+\item
+  \textbf{Number of Clusters:} 1
+\item
+  \textbf{Type of Support/Support License Agreement (SLA):} The most
+  extensive option. As stated in the CNCF Annual Survey 2023
+  \cite{CNCFAnnualSurvey2024}, complexity is still the second most
+  challenging problem for container operations. Thus, an extensive
+  degree of support aims to reflect the practical needs of organisations
+  when adopting these services.
+\end{itemize}
+
+Public cloud services often use the number of vCPUs as the criteria for
+management cost calculation
+\cite{RedHatOpenShiftc,PricingGoogleKubernetes}. In this evaluation, we
+look at a standard cluster with 3 worker nodes, each with 20 vCPUs. The
+full list of VM specifications are as follows:
+
+\begin{itemize}
+\tightlist
+\item
+  16 vCPUs
+\item
+  64 GB RAM
+\item
+  1 TB SSD
+\item
+  Up to 10 Gigabit network bandwidth
+\end{itemize}
+
+From these specifications, the monthly cost of operation is computed
+based on the available information on the provider's website.
+
+\subsection{Maximum nodes in a cluster}\label{maximum-nodes-in-a-cluster}
+
+The Maximum number of nodes in a cluster is obtained through the
+official documentation
+\cite{Chapter4Planninga,KnownLimitsService,nickomangLimitsResourcesSKUs2024,QuotasLimitsGoogle}.
+This is the maximum supported nodes in a single cluster. In the case of
+GKE, while it is theoretically possible to increase the limit to 65,000
+nodes, this requires special conditions and configurations. In addition,
+special arrangements with GKE support is also required. Thus, the 5,000
+nodes limit is used instead. This is also the limit that was used by
+Truyen et al.~\cite{truyenManagingFeatureCompatibility2020}.
+
+\subsection{Storage Provisioning, CNIs, and Monitoring and
+Logging}\label{storage-provisioning-cnis-and-monitoring-and-logging}
+
+For each criterion, the total number of supported options for that
+underlying operation is determined from the provider's documentation and used as the evaluation points. 
+
+\section{Result Normalisation}\label{result-normalisation}
+
+As discussed by Rehman et al.~\cite{5976164}, the performance
+measurement functions' result should be normalised to a unified range. A
+min-max normalisation is performed on all resulting output above to
+achieve a score on a scale from 0 to 5. The normalisation formula can be
+found below:
+
+\[
+   \text{Normalized Value} = 5 \times \frac{x - \text{min}(x)}{\text{max}(x) - \text{min}(x)}
+\]
+
+\section{Adjustable parameters}\label{adjustable-parameters}
+
+The other parameters for the Rehman framework used in this evaluation
+are listed below:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{User requirement criteria (\(R\)):} 0
+\item
+  \textbf{User priority weights (\(W\)):}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Security:} 50
+  \item
+    \textbf{Costs:} 10
+  \item
+    \textbf{Maximum nodes:} 10
+  \item
+    \textbf{Storage provisioning:} 10
+  \item
+    \textbf{CNIs:} 10
+  \item
+    \textbf{Moniroting and Logging:} 10
+  \end{itemize}
+\end{enumerate}
+
+The minimum requirements depend on the organisation's requirements.
+In this case, since the evaluation does not cater to a single
+organisation, there is no minimum requirement and the minimum
+requirements are left as 0.
+
+Regarding the weights, security is the key evaluation factor, as
+discussed in the section \ref{chap:evaluation-criteria}. Therefore, a large weight value is
+assigned to security. Each of the other features, on the other hand, get
+assigned an equal portion of the remaining weight value.
+
+These parameters can be adjusted appropriately to fit the organisation
+requirements and priorities if needed.
+
+\section{Result Compilation}\label{result-compilation}
+
+From all parameters defined above, it is possible to compute the service
+descriptor vector (\(D_i\)) and the decision matrix (\(A\)). Finally,
+the decisision matrix is transformed into the EWD vector using the following formula. This vector
+contains the resulting score of all the distributions evaluated, taking
+into account all the mentioned factors. The scores provide insights
+into how suitable each distribution is for enterprise use-cases based on
+the given hypothetical set of parameters.
+
+\chapter{Findings}
+
+\section{Security Evaluation}
+
+The features are identified from the official documentation of the selected services \cite{SecurityComplianceRed,SecurityOverview|,miwithroConceptsSecurityAzure2024,SecurityAmazonEKS}. For each feature, the functional question of "What is the output of this feature?" is evaluated. Through reviewing the official documentation of the selected vendors, 41 security features were identified and listed in table \ref{tab:feature_overview} in the Appendix. The corresponding feature support status is also identified in table \ref{tab:feature_support}.
+
+The total number of supported feature by each distribution and the normalised score can be seen from table \ref{tab:feature-score}
+
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|p{4cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|} % Set fixed widths for columns
+    \hline
+         & EKS & AKS & GKE & OCP \\ \hline
+        Distribution Security Feature Count& 30& 33& 35& 33\\ \hline
+ Distribution Security Feature Count (Normalised)& 1& 3& 5&3\\\hline
+    \end{tabular}
+    \caption{Cost Analysis Results} 
+    \label{tab:feature-score}
+\end{table}
+
+\section{Cost Analysis}
+
+With the specifications mentioned in the methodology section and the pricing information from the providers, the following costs are calculated \cite{CreateEstimateConfigure,PricingAzureKubernetes,GoogleCloudPricing,RedHatOpenShiftd}:
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|p{4cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|} % Set fixed widths for columns
+    \hline
+         & EKS & AKS & GKE & OCP \\ \hline
+        Management Cost & 73 & 72 & 288.03 & 500 \\ \hline
+        Infrastructure Cost & 1535.78 & 1867.06 & 2541.97 & 2541.97 \\ \hline
+        Total Cost & 1608.78 & 1939.06 & 2830 & 3041.97 \\ \hline
+        Maximum Cost Difference & 1433.19 & 1102.91 & 211.97 & 0 \\ \hline
+        Maximum Cost Differences (Normalised) & 5 & 4.078 & 1.592 & 1 \\ \hline
+    \end{tabular}
+    \caption{Cost Analysis Results} 
+    \label{tab:cost-analysis}
+\end{table}
+
+\section{Fundamental Features Evaluation}
+
+From the documentation, the followings were identified:
+
+\textbf{Maximum Nodes per Cluster}
+
+\begin{itemize}
+\tightlist
+\item
+  EKS: 5,000 \cite{KnownLimitsService}
+\item
+  AKS: 5,000  \cite{nickomangLimitsResourcesSKUs2024}
+\item
+  GKE: 5,000 \cite{QuotasLimitsGoogle}
+\item
+  OCP: 2,000  \cite{Chapter4Planning}
+\end{itemize}
+
+
+
+\textbf{Storage:}
+
+\begin{itemize}
+\tightlist
+\item
+  EKS: 4 options supported
+  S3 \cite{StoreApplicationData}
+\item
+     AKS: 6 options supported \cite{tamramConceptsStorageAzure2024}
+\item
+  GKE: 8 options supported \cite{StorageGKEClusters} 
+\item
+  OCP: 13 options supported \cite{UnderstandingPersistentStorage} 
+\end{itemize}
+
+\textbf{CNIs:}
+
+\begin{itemize}
+\tightlist
+\item
+  EKS: 5 CNIs supported \cite{AlternateCNIPlugins}
+\item
+  AKS: 4 CNIs supported \cite{schaffererinConceptsCNINetworking2024}
+\item
+  GKE: 4 CNIs supported \cite{NetworkOverviewGooglea}
+\item
+  OCP: 6 CNIs supported \cite{CertifiedOpenShiftCNI2024}
+\end{itemize}
+
+\textbf{Application Monitoring and Logging:}
+
+\begin{itemize}
+\tightlist
+\item
+  EKS: 1 option, Amazon Cloud Watch \cite{MonitorYourCluster}
+\item
+  AKS: 1 option, Azure Monitor \cite{martinekuanMonitorMicroservicesApplication}
+\item
+  GKE: 1 option, GKE logging agent \cite{GKELogsGoogle} 
+\item
+  OCP: 1 option, Loki Stack \cite{Logging60Logging}
+\end{itemize}
+
+The normalised score for this section can be seen below:
+
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|p{4cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|} % Set fixed widths for columns
+    \hline
+         & EKS & AKS & GKE & OCP \\ \hline
+        Supported Storage Provisioning Options & 4& 6& 8& 13\\ \hline
+        Supported Storage Provisioning Options (Normalised)& 1& 1.89& 2.78& 5\\ \hline
+        Supported CNI Options& 5& 4& 4& 6\\ \hline
+        Supported CNI Options (Normalised)& 3& 1& 1& 5\\ \hline
+        Supported Logging Options& 1& 1& 1& 1\\ \hline
+ Supported Logging Options (Normalised)& 1& 1& 1&1\\\hline
+ Maximum Nodes& 5000& 5000& 5000&2000\\\hline
+ Maximum Nodes (Normalised)& 5& 5& 5&1\\\hline
+    \end{tabular}
+    \caption{Fundamental Features Analysis} 
+    \label{tab:cost-analysis}
+\end{table}
+
+\section{EWD}
+
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|p{4cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|} % Set fixed widths for columns
+    \hline
+         & EKS& AKS& GKE& OCP\\ \hline
+        Normalised Security& 1.00& 3.00& 5.00& 3.00\\ \hline
+        Normalised Cost& 5.00& 4.08& 1.59& 1.00\\ \hline
+        Normalised Max Nodes& 5.00& 5.00& 5.00& 1.00\\ \hline
+        Normalised Storage& 1.00& 1.89& 2.78& 5.00\\ \hline
+        Normalised CNI& 3.00& 1.00& 1.00& 5.00\\ \hline
+ Normalised Logging& 0.00& 0.00& 0.00&0.00\\\hline
+ EWDs& 4.47& 4.23& 4.20&4.25\\\hline
+    \end{tabular}
+    \caption{Exponential Weighted Difference Results} 
+    \label{tab:cost-analysis}
+\end{table}
+
+\chapter{Discussion}
+
+Based on the findings. It appears that with the given parameters, GKE seems to be the most suitable distribution for the particular use-case evaluated. This can be largely attributed to the fact that GKE possess a higher amount of security features compare to the other distributions evaluated in this thesis.
+
+The criteria were chosen based on the perceived interests of companies and organisations displayed in the reviewed surveys. However, these findings do not meant to be prescriptive for all use-cases. As discussed, the framework proposed by Rehman et al. \cite{5976164} can be customised to fit the needs of an organisation on a case-by-case basis.
+
+With a different set of criteria, evaluation functions, weights, and user requirements, it is possible to arrive at a dissimilar ranking of distributions. Of course, this potential for customisation is one of the benefit of the chosen framework.
 
 \chapter{Conclusion}
 
-- Concluding remarks and potential aspects to look at future works.
+This thesis examines four major managed Kubernetes distributions and compare them in terms of security, costs, and other fundamental features. The qualitative features are quantified and combined to reach the final evaluation scores of the distributions Based on the scores, a clear ranking of distributions were provided.
+
+In addition, utilising the framework proposed by Rehman et al. \cite{5976164}, a structured procedure for multi-criteria cloud service selection was demonstrated. This work evaluated the distribution on a general level based on projected industrial interests. However, the same process can be applied and customised to specific organisational needs to achieve more relevant results. Through a systematic examination of features, organisations can make informed decisions that align closely with their requirements.
+
+Given the evidenced demand for managed Kubernetes, there is potential for further research in this domain. Future work could explore, for instance, a broader array of metrics than those reviewed in this thesis. Due to the limited resource, only a handful of selected qualitative features were selected for assessment. However, it is possible to include quantiative metrics such as computational performance (in terms of CPU, memory, disk I/O, networking, etc.) to achieve a more comprehensive analysis.
 
 
 
@@ -914,8 +1319,217 @@ e^{-(a_{l,1} - r_1)w_1} + e^{-(a_{l,2} - r_2)w_2} + \cdots + e^{(a_{l,m} - r_m)w
 % nulla. Nulla egestas. Curabitur a leo. Quisque egestas wisi eget
 % nunc. Nam feugiat lacus vel est. Curabitur consectetuer.
 
+
 \renewcommand{\bibname}{References (IEEE)}
 \printbibliography
 % \bibliography{references.bib}
+
+\chapter{Appendix}
+
+\begin{longtable}{p{0.35\linewidth} p{0.65\linewidth}} % Adjusted column widths
+\caption{Feature Overview and Descriptions} \label{tab:feature_overview} \\
+
+\toprule
+\textbf{Feature Name} & \textbf{Description} \\
+\midrule
+\endfirsthead % Header for the first page
+
+\toprule
+\textbf{Feature Name} & \textbf{Description} \\
+\midrule
+\endhead % Header for subsequent pages
+
+\bottomrule
+\endfoot % Footer for all but last page
+
+\endlastfoot % Footer for the last page
+
+\textbf{Kubernetes Role-Based Access Control (RBAC) Support} & Provides fine-grained access control by defining permissions for users and groups within Kubernetes clusters. \\
+\hline
+\textbf{Integration of Cloud IAM with Kubernetes RBAC} & Maps cloud provider IAM entities to Kubernetes RBAC roles for unified access control across cloud and cluster resources. \\
+\hline
+\textbf{Kubernetes Service Account Support} & Assigns permissions to pods via service accounts, controlling API resource access within the cluster. \\
+\hline
+\textbf{IAM Roles for Service Accounts / Workload Identity Federation} & Integrates service accounts with cloud IAM roles, allowing secure access to cloud resources from workloads. \\
+\hline
+\textbf{Cluster Authentication and Authorization} & Manages who can access the cluster (authentication) and what actions they can perform (authorization). \\
+\hline
+\textbf{Linux Capabilities Management and Security Profiles} & Controls Linux capabilities for containers and manages security profiles like Seccomp and SELinux for enhanced container security. \\
+\hline
+\textbf{Network Policies} & Restricts pod-to-pod communication using labels or IP ranges, managing traffic within the cluster. \\
+\hline
+\textbf{Pod Security Policies / Admission Controllers / Security Context Constraints} & Enforces security settings at the pod level, controlling privileges and applying security contexts. \\
+\hline
+\textbf{Node Affinity and Taints/Tolerations} & Schedules pods to specific nodes, providing workload isolation and optimized resource utilization. \\
+\hline
+\textbf{TLS/SSL Support and Encryption} & Ensures secure communication by enforcing TLS protocols and managing SSL certificates for cluster components. \\
+\hline
+\textbf{Kubernetes Secrets Encryption / Data Encryption at Rest} & Encrypts sensitive data stored in secrets or etcd, protecting information at rest within the cluster. \\
+\hline
+\textbf{Vulnerability Scanning and Compliance Benchmarking} & Scans cluster configurations and container images for vulnerabilities, ensuring compliance with security standards like CIS benchmarks. \\
+\hline
+\textbf{Private Clusters / VPC Integration} & Limits API server access using virtual networks, enhancing security by restricting public exposure and integrating with Virtual Private Clouds (VPCs). \\
+\hline
+\textbf{Node and Network Security Groups} & Defines network-level access controls using security groups or network policies, controlling traffic to and from nodes and control plane components. \\
+\hline
+\textbf{Image Integrity Enforcement / Binary Authorization} & Ensures that only trusted container images are deployed through signature verification and policy compliance. \\
+\hline
+\textbf{Container-Optimized Operating Systems} & Uses hardened OS images for nodes with enhanced security features like read-only filesystems and minimized user accounts. \\
+\hline
+\textbf{Workload Sandbox / Kernel-Level Isolation / Confidential Containers} & Provides additional isolation for workloads using sandboxing technologies or confidential computing to protect data in use. \\
+\hline
+\textbf{Audit Logging} & Records cluster activities and API calls for auditing and compliance purposes, helping detect unauthorized actions. \\
+\hline
+\textbf{Access Control at Network Layer} & Implements network-level access controls using firewalls, security groups, or network policies to manage traffic flow. \\
+\hline
+\textbf{Kubernetes Node Authorization} & Manages authorization for Kubernetes nodes, determining what actions nodes can perform within the cluster. \\
+\hline
+\textbf{Policy-as-Code Support} & Allows policies and access controls to be defined and managed as code, enabling version control and automation. \\
+\hline
+\textbf{Separate Public and Private IP Subnets} & Isolates public-facing services from internal cluster components by segregating network subnets, enhancing security. \\
+\hline
+\textbf{Signed API Requests} & Requires API requests to be signed with credentials, ensuring the authenticity and integrity of client requests. \\
+\hline
+\textbf{Automatic Least-Privilege Determination} & Automatically identifies the minimal required permissions for applications, facilitating the principle of least privilege. \\
+\hline
+\textbf{Credential and Certificate Rotation} & Automates the rotation of credentials and SSL certificates to maintain security over time. \\
+\hline
+\textbf{Access Control for Support Personnel} & Provides mechanisms like just-in-time access roles for support staff, granting temporary and limited access to cluster resources. \\
+\hline
+\textbf{Image Build Security and Vulnerability Scanning} & Performs static analysis and vulnerability scanning of container images before deployment to ensure they meet security standards. \\
+\hline
+\textbf{Modified File Monitoring} & Continuously monitors file integrity on cluster nodes, logging any unauthorized modifications. \\
+\hline
+\textbf{Virtual Trusted Platform Module (vTPM) Support} & Uses virtual TPMs to provide hardware-based security features like secure key storage and remote attestation. \\
+\hline
+\textbf{ETCD Encryption} & Encrypts data stored in the etcd key-value store, securing cluster state information and protecting against unauthorized access. \\
+\hline
+\textbf{Automated Compliance Scanning and Remediation Suggestions} & Automatically scans for compliance with security standards and provides recommendations for remediation. \\
+\hline
+\textbf{Automatic Image Signature Verification} & Verifies container image signatures upon deployment to ensure they come from trusted sources. \\
+\hline
+\textbf{Automation of Tang Server Deployment for Disk Encryption} & Automates network-bound disk encryption using Tang servers, providing automatic unlocking of encrypted volumes. \\
+\hline
+\textbf{TLS Security Profile Configuration} & Allows customization of TLS settings and ciphers used by cluster components to meet specific security requirements. \\
+\hline
+\textbf{Shielded Nodes} & Provides node-level security features like secure boot and integrity monitoring to protect against boot-time attacks. \\
+\hline
+\textbf{Admission Controllers} & Uses admission plugins to enforce policies on API requests before they are persisted in the cluster. \\
+\hline
+\textbf{Kernel-Level Security Features} & Employs security features like AppArmor, Seccomp, and SELinux to restrict the actions that containers can perform. \\
+\hline
+\textbf{Support for Confidential Containers} & Provides containers that encrypt data in use, preventing access to the data by the host OS or hypervisor. \\
+\hline
+\textbf{Segmented Network / Multitenancy Support} & Segments network traffic within the cluster to isolate users, teams, applications, and environments. \\
+\hline
+\textbf{Managing Linux Capabilities and Security Profiles Cluster-wide} & Manages Linux security profiles across nodes for consistent application and enhanced security. \\
+\hline
+\textbf{Filtering Traffic with kube-proxy} & Uses kube-proxy to filter traffic based on IP addresses and ports, controlling service access within the cluster. \\
+
+\end{longtable}
+
+
+\begin{longtable}{p{0.74\linewidth} p{0.06\linewidth} p{0.06\linewidth} p{0.06\linewidth} p{0.06\linewidth}}
+\caption{Feature Support Status} \label{tab:feature_support} \\
+
+\toprule
+\textbf{Feature Name} & \textbf{EKS} & \textbf{AKS} & \textbf{GKE} & \textbf{OCP} \\
+\midrule
+\endfirsthead
+
+\toprule
+\textbf{Feature Name} & \textbf{EKS} & \textbf{AKS} & \textbf{GKE} & \textbf{OCP} \\
+\midrule
+\endhead
+
+\bottomrule
+\endfoot
+
+\endlastfoot
+\textbf{1. Kubernetes Role-Based Access Control (RBAC) Support} & Yes &
+Yes & Yes & Yes \\
+\textbf{2. Integration of Cloud IAM with Kubernetes RBAC} & Yes & Yes &
+Yes & Yes \\
+\textbf{3. Kubernetes Service Account Support} & Yes & Yes & Yes &
+Yes \\
+\textbf{4. IAM Roles for Service Accounts / Workload Identity
+Federation} & Yes & Yes & Yes & \small{Partial} \\
+\textbf{5. Cluster Authentication and Authorization} & Yes & Yes & Yes &
+Yes \\
+\textbf{6. Linux Capabilities Management and Security Profiles} & Yes &
+Yes & Yes & Yes \\
+\textbf{7. Network Policies} & Yes & Yes & Yes & Yes \\
+\textbf{8. Pod Security Policies / Admission Controllers / Security
+Context Constraints} & Yes & Yes & Yes & Yes \\
+\textbf{9. Node Affinity and Taints/Tolerations} & Yes & Yes & Yes &
+Yes \\
+\textbf{10. TLS/SSL Support and Encryption} & Yes & Yes & Yes & Yes \\
+\textbf{11. Kubernetes Secrets Encryption / Data Encryption at Rest} &
+Yes & Yes & Yes & Yes \\
+\textbf{12. Vulnerability Scanning and Compliance Benchmarking} &
+\small{Partial} & Yes & Yes & Yes \\
+\textbf{13. Private Clusters / VPC Integration} & Yes & Yes & Yes &
+Yes \\
+\textbf{14. Node and Network Security Groups} & Yes & Yes & Yes &
+\small{Partial} \\
+\textbf{15. Image Integrity Enforcement / Binary Authorization} &
+\small{Partial} & Yes & Yes & Yes \\
+\textbf{16. Container-Optimized Operating Systems} & Yes & Yes & Yes &
+Yes \\
+\textbf{17. Workload Sandbox / Kernel-Level Isolation / Confidential
+Containers} & \small{Partial} & Yes & Yes & \small{Partial} \\
+\textbf{18. Audit Logging} & Yes & Yes & Yes & Yes \\
+\textbf{19. Access Control at Network Layer} & Yes & Yes & Yes & Yes \\
+\textbf{20. Kubernetes Node Authorization} & Yes & Yes & Yes & Yes \\
+\textbf{21. Policy-as-Code Support} & Yes & Yes & Yes & Yes \\
+\textbf{22. Separate Public and Private IP Subnets} & Yes & Yes & Yes &
+Yes \\
+\textbf{23. Signed API Requests} & Yes & No & No & No \\
+\textbf{24. Automatic Least-Privilege Determination} & Yes & No & No &
+No \\
+\textbf{25. Credential and Certificate Rotation} & Yes & Yes & Yes &
+Yes \\
+\textbf{26. Access Control for Support Personnel} & No & Yes & No &
+No \\
+\textbf{27. Image Build Security and Vulnerability Scanning} & \small{Partial} &
+Yes & Yes & Yes \\
+\textbf{28. Modified File Monitoring} & No & No & No & Yes \\
+\textbf{29. Virtual Trusted Platform Module (vTPM) Support} & No & No &
+Yes & No \\
+\textbf{30. ETCD Encryption} & Yes & Yes & Yes & Yes \\
+\textbf{31. Automated Compliance Scanning and Remediation Suggestions} &
+\small{Partial} & Yes & Yes & Yes \\
+\textbf{32. Automatic Image Signature Verification} & \small{Partial} & Yes &
+Yes & Yes \\
+\textbf{33. Automation of Tang Server Deployment for Disk Encryption} &
+No & No & No & Yes \\
+\textbf{34. TLS Security Profile Configuration} & \small{Partial} & \small{Partial} &
+\small{Partial} & Yes \\
+\textbf{35. Shielded Nodes} & No & No & Yes & No \\
+\textbf{36. Admission Controllers} & Yes & Yes & Yes & Yes \\
+\textbf{37. Kernel-Level Security Features} & Yes & Yes & Yes & Yes \\
+\textbf{38. Support for Confidential Containers} & No & Yes & Yes &
+\small{Partial} \\
+\textbf{39. Segmented Network / Multitenancy Support} & Yes & Yes & Yes
+& Yes \\
+\textbf{40. Managing Linux Capabilities and Security Profiles
+Cluster-wide} & \small{Partial} & \small{Partial} & \small{Partial} & Yes \\
+\textbf{41. Filtering Traffic with kube-proxy} & No & No & Yes & No \\
+\end{longtable}
+
+
+\textbf{Legend:}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Yes}: The platform supports the feature.
+\item
+  \textbf{Partial}: The platform offers limited support or requires
+  additional configuration/tools.
+\item
+  \textbf{No}: The platform does not support the feature.
+\end{itemize}
+
 
 \end{document}
