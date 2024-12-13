@@ -181,7 +181,7 @@ degree of Bachelor of Science in Technology.
 Otaniemi, 13 December 2024
 
 \begin{tabbing}
-Supervisor:\hspace{6mm} \= Prof. Salu Ylirisku\\
+Supervisor:\hspace{6mm} \= Dr. Salu Ylirisku\\
 Advisor: \> Prof. Gopika Premsankar
 \end{tabbing}
 \vspace{-4mm}
@@ -192,7 +192,7 @@ Advisor: \> Prof. Gopika Premsankar
 
 \begin{spacing}{.9}
 {\bfseries\sffamily\lsstyle Aalto University \\
-School of Electrical Engineering \\
+School of Science \\
 Bachelor’s Programme in Science and Technology}
 \end{spacing}
 } % Kappaleiden sisennys takaisin käyttöön
@@ -231,7 +231,7 @@ Bachelor’s Programme in Science and Technology}
 
 \vspace{.5mm}\rule{\textwidth}{.75pt}
 
-{\fontsize{10.5pt}{10.5pt}\bfseries\sffamily\lsstyle School}~~{\small School of Electrical Engineering}
+{\fontsize{10.5pt}{10.5pt}\bfseries\sffamily\lsstyle School}~~{\small School of Science}
 
 \vspace{-2.4mm}\rule{\textwidth}{.75pt}
 
@@ -243,7 +243,7 @@ Bachelor’s Programme in Science and Technology}
 
 \vspace{-2.4mm}\rule{\textwidth}{.75pt}
 
-{\fontsize{10.5pt}{10.5pt}\bfseries\sffamily\lsstyle Supervisor}~~{\small Prof. Salu Ylirisku}
+{\fontsize{10.5pt}{10.5pt}\bfseries\sffamily\lsstyle Supervisor}~~{\small Dr. Salu Ylirisku}
 
 \vspace{-2.4mm}\rule{\textwidth}{.75pt}
 
@@ -251,7 +251,7 @@ Bachelor’s Programme in Science and Technology}
 
 \vspace{-2.4mm}\rule{\textwidth}{.75pt}
 
-{\fontsize{10.5pt}{10.5pt}\bfseries\sffamily\lsstyle Level}~~{\small Bachelor's thesis}\hfill{\fontsize{10.5pt}{10.5pt}\bfseries\sffamily\lsstyle Date}~~{\small 13 Nov 2024}\hfill{\fontsize{10.5pt}{10.5pt}\bfseries\sffamily\lsstyle Pages}~~{\small 57}\hfill{\fontsize{10.5pt}{10.5pt}\bfseries\sffamily\lsstyle Language}~~{\small English}
+{\fontsize{10.5pt}{10.5pt}\bfseries\sffamily\lsstyle Level}~~{\small Bachelor's thesis}\hfill{\fontsize{10.5pt}{10.5pt}\bfseries\sffamily\lsstyle Date}~~{\small 13 Dec 2024}\hfill{\fontsize{10.5pt}{10.5pt}\bfseries\sffamily\lsstyle Pages}~~{\small 40+16}\hfill{\fontsize{10.5pt}{10.5pt}\bfseries\sffamily\lsstyle Language}~~{\small English}
 
 \vspace{-2.4mm}\rule{\textwidth}{.75pt}
 
@@ -424,14 +424,14 @@ Bachelor’s Programme in Science and Technology}
 
 \chapter{Introduction}
 
-The cloud refers to an elastic pool of computing resources that can be utilised to execute workloads \cite{editorCloudComputingGlossary}. As a concept, it was first introduced in 2006 with the launch of the first public cloud service (Simple Storage Service, S3) \cite{liuReviewDigitalTwin2021}. Since then, the field has experienced rapid growth and development, with the rise of various tools, frameworks, and paradigms. One key technology that enabled this development is virtualisation. Virtualisation allows the hosting of multiple \textit{virtualised} hardware instances on the same physical hardware, enabling applications and their dependencies to run independently of other applications. Notably, a core virtualisation technology that characterises modern cloud computing is \textit{containerisation} \cite{pereiraferreiraPerformanceEvaluationContainers2019}. Through containerisation, application dependencies can be packaged in “containers” that share access to the underlying host OS kernel, allowing multiple containers with different dependencies to be hosted on the same hardware.
+The cloud refers to an elastic pool of computing resources that can be utilised to execute workloads \cite{editorCloudComputingGlossary}. As a concept, it first gained traction in 2006 with the launch of the first public cloud service (Simple Storage Service, S3) \cite{liuReviewDigitalTwin2021}. Since then, the field has experienced rapid growth and development, with the rise of various tools, frameworks, and paradigms. One key technology that enabled this development is virtualisation. Virtualisation allows the hosting of multiple \textit{virtualised} hardware instances on the same physical hardware, enabling applications and their dependencies to run independently of other applications. Notably, a core virtualisation technology that characterises modern cloud computing is \textit{containerisation} \cite{pereiraferreiraPerformanceEvaluationContainers2019}. Through containerisation, application dependencies can be packaged in “containers” that share access to the underlying host OS kernel, allowing multiple containers with different dependencies to be hosted on the same hardware.
 
 
 While being resource-efficient and lightweight, large-scale adoption of containers in the cloud faces a new set of challenges in terms of automation, scalability, and management \cite{pereiraferreiraPerformanceEvaluationContainers2019,felterUpdatedPerformanceComparison2015}. To address these challenges, a range of \textit{container orchestration} (CO) tools exist. The most notable is Kubernetes, an open-source CO platform that was originally developed by Google \cite{Kubernetes, pereiraferreiraPerformanceEvaluationContainers2019}. Although other tools such as Docker Swarm exist, Kubernetes remains the industry’s de facto standard in terms of container management due to its robust reliability, extensive feature set, and broad ecosystem \cite{truyenComprehensiveFeatureComparison2019,KubernetesKubernetesProductionGrade,SwarmMode0200}.
 
-Kubernetes enables the management of hundreds of thousands of containers, making it extremely scalable. In addition to the native Kubernetes, various Kubernetes distributions were developed to cater towards specific use cases, such as edge computing and enterprise environments. Specifically, \textit{managed Kubernetes} are Kubernetes distributions that cloud service providers maintain and manage. These distributions focus on providing features such as streamlined application deployment, enhanced security, advanced management capability, and optimised resource utilisation for large-scale applications \cite{WhatEnterpriseKubernetes, truyenComprehensiveFeatureComparison2019, jiangIndustrialApplicationsDigital2021}. This combination of scalability and enhanced functionality makes managed Kubernetes a preferred choice for organisations over native Kubernetes and other open-source alternatives \cite{redhatinc.StateKubernetesSecurity2024, vrabicDigitalTwinsUnderstanding2018, portworxKubernetesAdoptionSurvey2021, broadcomStateKubernetes20232023}.
+Kubernetes enables the management of hundreds of thousands of containers, making it extremely scalable. In addition to the native Kubernetes, various Kubernetes distributions were developed to cater towards specific use cases, such as edge computing and enterprise environments. Specifically, \textit{managed Kubernetes} are Kubernetes distributions that cloud service providers maintain and manage. These distributions focus on providing features such as streamlined application deployment, enhanced security, advanced management capability, and optimised resource utilisation for large-scale applications \cite{WhatEnterpriseKubernetes, truyenComprehensiveFeatureComparison2019}. This combination of scalability and enhanced functionality makes managed Kubernetes a preferred choice for organisations over native Kubernetes and other open-source alternatives \cite{redhatinc.StateKubernetesSecurity2024, canonicalKubernetesCloudNative2022, portworxKubernetesAdoptionSurvey2021, broadcomStateKubernetes20232023}.
 
-Multiple service providers such as Amazon, Microsoft, Google, Red Hat, and VMware, offer their own flavour of managed Kubernetes: Amazon Elastic Kubernetes Service (EKS), Google Kubernetes Engine (GKE), Azure Kubernetes Service (AKS), Red Hat OpenShift Container Platform (OCP), and VMware Tanzu, respectively \cite{AmazonEKSCustomers, maEurekaHumanLevelReward2023, nickomangAzureKubernetesService, redhatinc.RedHatOpenShift, VMwareTanzuPlatform}. Each distribution has pros and cons, but they all offer a high degree of feature availability that elevates Kubernetes beyond its upstream version with tools for monitoring, scaling, managing, and securing enterprise workloads. In addition to their varying feature sets, these distributions also differ in terms of their cost structure, which can be further broken down into infrastructure, management, and additional service costs.
+Multiple service providers such as Amazon, Microsoft, Google, Red Hat, and VMware, offer their own flavour of managed Kubernetes: Amazon Elastic Kubernetes Service (EKS), Google Kubernetes Engine (GKE), Azure Kubernetes Service (AKS), Red Hat OpenShift Container Platform (OCP), and VMware Tanzu, respectively \cite{AmazonEKSCustomers, GKEOverviewGoogle, nickomangAzureKubernetesService, redhatinc.RedHatOpenShift, VMwareTanzuPlatform}. Each distribution has pros and cons, but they all offer a high degree of feature availability that elevates Kubernetes beyond its upstream version with tools for monitoring, scaling, managing, and securing enterprise workloads. In addition to their varying feature sets, these distributions also differ in terms of their cost structure, which can be further broken down into infrastructure, management, and additional service costs.
 
 Although the performance of open-source Kubernetes distributions is relatively well-researched \cite{bohmProfilingLightweightContainer2021, kjorveziroskiKubernetesDistributionsEdge2022, ascensaoAssessingKubernetesDistributions2024}, few studies looked at the managed Kubernetes distributions in terms of features and cost of operation \cite{pereiraferreiraPerformanceEvaluationContainers2019}. These aspects are crucial for organisations to make informed decisions on their distribution of choice. Given the relevance of managed Kubernetes and the evidenced lack of research, this thesis aims to qualitatively evaluate the most commonly adopted managed Kubernetes solutions and identify the best-suited distributions for the industry.
 
@@ -559,7 +559,7 @@ Hybrid cloud deployment allows users to access features from both private and pu
 
 
 
-\section{Vitualisation}
+\section{Virtualisation}
 
 The cloud has evolved a lot since the beginning. However, one concept that remains crucial for cloud computing is virtualisation. Virtualisation enables the hosting of multiple software packages on the same physical hardware. This is achieved by allowing applications to access \textit{virtualised} hardware to utilise for their computational needs \cite{goldbergSurveyVirtualMachine1974}.
 
@@ -569,7 +569,7 @@ This capability promotes operations such as software testing, application isolat
 
 Despite the aforementioned benefits of VMs regarding isolation and reliability, replicating an operating system in full requires additional computation overhead. This was one of the challenges that \textit{containers} aim to solve. Containers are portable software packages that include not only the application(s), but also all the necessary components (e.g. libraries and binaries) to run said application(s) \cite{bernsteinContainersCloudLXC2014}. Similar to VMs, containers ensure consistent operation across various environments, regardless of the underlying hardware and operating system.
 
-The key difference between the two methods of virtualisation lies in the way they access the underlying hardware of the server. In contrast to VMs, which require a distinct operating system for each instance, containers utilise the kernel of the host OS to execute instructions. This design allows containers to be more resource-efficient and faster to deploy, while still ensuring a degree of isolation between processes. These advantages make containers a favourable choice for cloud environments in recent years, where scalability, performance, and resource efficiency are crucial requirements \cite{bernsteinContainersCloudLXC2014, felterUpdatedPerformanceComparison2015}.
+The key difference between the two methods of virtualisation lies in the way they access the underlying hardware of the server. In contrast to VMs, which require a distinct operating system for each instance, containers utilise the kernel of the host OS to execute instructions. Figure \ref{fig:vms-vs-containers} shows this architectural difference. This design allows containers to be more resource-efficient and faster to deploy, while still ensuring a degree of isolation between processes. These advantages make containers a favourable choice for cloud environments in recent years, where scalability, performance, and resource efficiency are crucial requirements \cite{bernsteinContainersCloudLXC2014, felterUpdatedPerformanceComparison2015}.
 
 \begin{figure}
     \centering
@@ -628,7 +628,7 @@ Kubernetes offers several key features that make it well-suited for cloud-native
 
 \end{itemize}
 
-In addition to its core functionality, Kubernetes has fostered a diverse portfolio of supportive tools and services such as Helm for package management, Prometheus for monitoring purposes, and ArgoCD for continuous delivery \cite{Helm, prometheusOverviewPrometheus, ArgoCDDeclarative}. This ecosystem plays a significant role in solidifying Kubernetes' central position in the modern cloud-native landscape.
+In addition to its core functionality, Kubernetes has fostered a diverse portfolio of supportive tools and services such as Helm for package management, Prometheus for monitoring purposes, and Argo CD for continuous delivery \cite{Helm, prometheusOverviewPrometheus, ArgoCDDeclarative}. This ecosystem plays a significant role in solidifying Kubernetes' central position in the modern cloud-native landscape.
 
 \subsection{Distributions}
 As a widely adopted tool across various industries, it is challenging for the upstream Kubernetes distribution to cater to all the requirements and use cases of its users. Thus, different Kubernetes \textit{distributions} emerged to address these specific needs, such as lightweight deployment and managed deployment \cite{bohmProfilingLightweightContainer2021, pereiraferreiraPerformanceEvaluationContainers2019}. From the licensing and management perspective, Kubernetes distributions largely fall into two categories: open-source (self-managed) and proprietary (managed).
@@ -712,7 +712,7 @@ Regarding the observed peak in publications on ``Kubernetes'', a 2019 study by T
 
 These statistics indicate a rising interest in both Kubernetes and managed Kubernetes, highlighting the relevance of the thesis topic. The increasing interest in managed Kubernetes, combined with the lack of research evaluating managed Kubernetes solutions, demonstrated a potential for further academic exploration and analysis to address this gap. With the focus on examining the most suitable managed Kubernetes distribution, the thesis falls under the ``best of breed'' stream of research. It was mentioned by Marston et al. \cite{MARSTON2011176} that this research stream is a highly relevant vein of research for cloud computing.
 
-\section{Academic Literature on Managed Kuberentes Distributions Evaluation}
+\section{Academic Literature on Managed Kubernetes Distributions Evaluation}
 
 As mentioned by Pereira et al. \cite{pereiraferreiraPerformanceEvaluationContainers2019}, as well as demonstrated by the number of yearly publications in section \ref{subsec:research-publications}, the literature covering the performance of managed solutions is rather sparse. Open-source Kubernetes distributions, on the other hand, have received significantly more attention in terms of research \cite{bohmProfilingLightweightContainer2021,koziolekLightweightKubernetesDistributions2023,ascensaoAssessingKubernetesDistributions2024,9660392,bryantKubernetesDeploymentOptions2024}. Given the degree of variations amongst the managed distributions in terms of performance, features, and costs, further research could provide valuable insights that aid organisations in making informed decisions on their distribution of choice.
 
@@ -767,7 +767,7 @@ adaptable to qualitative features. In addition, the output of the method
 must result in a clear ranking of the evaluated services, making it possible to identify the \textit{most suitable} solution for the user's requirements.
 
 Several methods for cloud service selection were considered for this thesis. The Cloud
-Evaluation Experiment Methodology (CEEM) framework used by Pereira
+Evaluation Experiment Methodology (CEEM) framework was used by Pereira
 et al.~\cite{pereiraferreiraPerformanceEvaluationContainers2019} in the
 managed Kubernetes performance evaluation. However, this framework was designed with empirical experiments
 in mind. Thus, it is not applicable to this thesis since most of the
@@ -776,7 +776,7 @@ features are qualitative in nature.
 Another framework for cloud service selection is proposed by Arun et
 al.~\cite{9284492}. It provides a rather comprehensive and structured
 method to evaluate cloud services, including a criterion for cloud
-features. Yet, the emphasis is on multi-cloud service selection, resulting in a selection of multiple cloud services potentially hosted across different regions. On the contrary, the
+features. Yet, the emphasis is on multi-cloud service selection, resulting in a selection of multiple cloud services potentially hosted across different regions. On the other hand, the
 current work focuses more on the comparison and ranking between the
 services being evaluated as standalone solutions. In other words, a \textit{single cloud} selection problem rather than a multi-cloud one.
 
@@ -917,7 +917,7 @@ The main challenge for the research problem in this thesis is finding
 appropriate functions to evaluate the qualitative features to a numeric
 value.
 
-\section{Evaluation Criteria}\label{evaluation-criteria}
+\section{Criteria}\label{evaluation-criteria}
 
 This section identifies the relevant criteria for organisations that are evaluated in this thesis. In the chosen multi-criteria selection framework, this corresponds to the criteria set $C$.
 
@@ -996,12 +996,12 @@ Despite the limitations, the included features make the current evaluation more 
 An additional issue enterprises consider is cost. For managed Kubernetes, the cost of operation can be further broken down into two main components: management costs and infrastructure costs. Management costs are the fees that service providers charge for managing the Kubernetes cluster(s). Infrastructure costs are charged according to the usage of underlying infrastructure to host the clusters. The total cost of operation from these two components is an important factor that influences enterprises' choice of services. Thus, it is crucial to include the cost of these distributions as a criterion in our evaluation.
 
 
-\section{Evaluation Setup}\label{evaluation-setup}
+\section{Setup}\label{evaluation-setup}
 
 Applying the chosen multi-criteria service selection framework to the research problem described in this thesis yields the following parameters and variables for the evaluation setup.
 
-\subsection{Service set and performance
-criteria}\label{service-set-and-performance-criteria}
+\subsection{Service Set and Performance
+Criteria}\label{service-set-and-performance-criteria}
 
 We can define the first two parameters (service set and performance criteria) as follows:
 
@@ -1160,7 +1160,7 @@ Observing the table, it appears that the features are fairly comparable in terms
     \label{tab:security-evaluation}
 \end{table}
 
-\section{Cost Analysis}
+\section{Cost Evaluation}
 
 With the computational specifications mentioned in Section \ref{evaluation-setup} and the pricing information from the providers, the following costs are calculated \cite{CreateEstimateConfigure,PricingAzureKubernetes,GoogleCloudPricing,RedHatOpenShiftd}:
 \begin{table}[!ht]
@@ -1551,7 +1551,7 @@ In this evaluation, AKS is the top distribution. Looking at the exponential term
 EKS also surpasses GKE due to the same reason. However, it fails to overtake AKS due to the smaller exponential term for security features. Lastly, OCP falls short on both costs and maximum nodes, and therefore is ranked at 4th place.
 
 \chapter{Discussion}\label{discussion}
-Based on the results of the evaluations, this section discusses the findings of the research. In addition, the limitations of the current evaluation is identified.
+Based on the results of the evaluations, this section discusses the findings of the research. In addition, the limitations of the current evaluation are identified.
 
 \section{Overview of Findings}
 Based on the findings, it appears that in the security prioritisation scenario, GKE seems to be the most suitable distribution evaluated. This can be largely attributed to the fact that GKE possesses a higher amount of security features compared to the other distributions evaluated in this thesis.
@@ -1575,13 +1575,13 @@ Lastly, although simple to implement, the min-max normalisation method chosen fo
 
 \chapter{Conclusion}\label{conclusion}
 
-This thesis examines four major managed Kubernetes distributions and compares them in terms of security, costs, and other fundamental features. The qualitative features were quantified and combined to reach the final evaluation scores of the distributions in various hypothetical scenarios. Based on the scores, a clear ranking of distributions were provided.
+This thesis examines four major managed Kubernetes distributions and compares them in terms of security, costs, and other fundamental features. The qualitative features were quantified and combined to reach the final evaluation scores of the distributions in various hypothetical scenarios. Based on their scores in each scenario, clear suitability rankings of the distributions were provided.
 
 The different evaluation scenarios that were evaluated indicate that there is no definitive best-suited distribution for all use cases. In other words, no single service provider significantly outperforms others on all criteria. Instead, the ranking of the distributions through the multi-criteria service selection framework is heavily dependent on the particular requirements of stakeholders and decision-makers.
 
 In addition, utilising the framework proposed by Rehman et al. \cite{5976164}, a structured procedure for multi-criteria cloud service selection was demonstrated. This work evaluated the distribution on a general level based on projected industrial interests. However, the same process can be applied and customised to specific organisational needs to achieve more relevant results. Through a systematic examination of features, organisations can make informed decisions that align closely with their requirements.
 
-Given the evidenced demand for managed Kubernetes, there is potential for further research in this domain. Future work could explore, for instance, a broader array of metrics than those reviewed in this thesis. Due to the limited resources, only a handful of selected qualitative features were selected for assessment. However, it is possible to include quantitative metrics such as computational performance (in terms of CPU, memory, disk I/O, networking, etc.) to achieve a more comprehensive analysis. These insights could further aid organisations in identifying the optimal distribution for their use case.
+Given the evidenced demand for managed Kubernetes, there is potential for further research in this domain. Future work could explore, for instance, a broader array of metrics than those reviewed in this thesis. Due to the limited resources, only a handful of selected qualitative features were selected for assessment. However, it is possible to include quantitative metrics such as computational performance (in terms of CPU, memory, disk I/O, networking, etc.) to achieve a more comprehensive analysis. These insights could further aid organisations in identifying the optimal distribution for their use cases.
 
 
 
