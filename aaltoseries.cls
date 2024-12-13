@@ -221,7 +221,7 @@
 
 % Produce PDF/A
 \ifthenelse{\boolean{pdfa}}
-{\usepackage[a-1b]{pdfx}}{}
+{\usepackage[a-2b]{pdfx}}{}
 
 %% Set the marginals
 \RequirePackage{geometry}
